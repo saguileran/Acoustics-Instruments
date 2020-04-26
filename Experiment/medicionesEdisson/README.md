@@ -6,3 +6,5 @@ mencionado anteriormente.
 Sus datos para graficar los espectros asociados son los espectro21,22,23,24 y fondo-2.
 En ambos casos los dispositivos estaban a aprox 10cm de la parte inferior de la flauta.
 Todo fue analizado con audacity.
+
+En todos los casos se grabaron las notas musicales do, re, mi, fa, sol, la, si.
