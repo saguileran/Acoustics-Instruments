@@ -1,4 +1,4 @@
-<center> <h1>Record characterization an simulation</h1> </center>
+<center> <h1>Record characterization and simulation</h1> </center>
 
 
 The objective of this project is to characterize recoder (musical instrument) using wave theory, simulation programms and audio data analysis apps and recording apps. Expected to be expanded to other types of instruments.
