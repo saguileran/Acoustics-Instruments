@@ -1,4 +1,4 @@
-<center> <h1>Flute Characterization</h1> </center>
+#<center> <h1>Flute Characterization</h1> </center>
 
 
 The goal of this project is to characterize some acoustic or electrical instruments using wave theory, we going to study simple cases like drums or flutes.
