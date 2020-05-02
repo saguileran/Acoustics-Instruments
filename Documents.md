@@ -1,18 +1,20 @@
-Here is the documentation create by the team,
+Project Documentation
+============
+
 
 Measurement Protocols
 
-  * Several Applications
+* Several Applications
   
-        Edit: https://www.overleaf.com/6354285942czyjsvzggzsx
-        Read: https://www.overleaf.com/read/dhjpjcbzbwcc
+Edit: https://www.overleaf.com/6354285942czyjsvzggzsx
+Read: https://www.overleaf.com/read/dhjpjcbzbwcc
     
-  * Several Audacity
+* Several Audacity
   
-    Edit: 
-    Read: 
+Edit: 
+Read: 
 
 Project Main
 
-    Edit: https://www.overleaf.com/3248263844xxzbchkspghm
-    Read: https://www.overleaf.com/read/bgjwrzspkgdm
+Edit: https://www.overleaf.com/3248263844xxzbchkspghm
+Read: https://www.overleaf.com/read/bgjwrzspkgdm
