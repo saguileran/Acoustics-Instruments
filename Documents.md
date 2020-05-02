@@ -3,9 +3,9 @@ Project Documentation
 
 **Project Main**
 
-Edit: https://www.overleaf.com/3248263844xxzbchkspghm
+* Edit: https://www.overleaf.com/3248263844xxzbchkspghm
 
-Read: https://www.overleaf.com/read/bgjwrzspkgdm
+* Read: https://www.overleaf.com/read/bgjwrzspkgdm
 
 
 
@@ -13,13 +13,13 @@ Read: https://www.overleaf.com/read/bgjwrzspkgdm
 
 * Several Applications
   
-*Edit: https://www.overleaf.com/6354285942czyjsvzggzsx
+* Edit: https://www.overleaf.com/6354285942czyjsvzggzsx
 
-*Read: https://www.overleaf.com/read/dhjpjcbzbwcc
+* Read: https://www.overleaf.com/read/dhjpjcbzbwcc
     
 
 * Audacity
   
-*Edit: 
+* Edit: 
 
-*Read: 
+* Read: 
