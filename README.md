@@ -9,7 +9,7 @@ For this purpose, the project is divide in three parts:
 
 * **Theoretical**: How to model the phenomena with physics theory. Trying to represent the flute by wave and fluid theories including its border conditiones and other parameters. Relate by equation ways to define record's characterists. 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Leader: Diego Mendoza
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Leader: Felipe Reyes
 
 
 * **Experimental**: Search for the most movenient, simple, and free access apps, to record sound from the recorder and get its data to be analyzed. From this analysis find by theory equations its characteristics.
