@@ -25,7 +25,7 @@ for(int n = 1; n <= fmax; n++){ //Pasos de avance de frecuencia
     v = c*(1.0 - ((0.00165)/(a*(std::sqrt(f)))));
     ar1 = al*L;
     ar2 = ((f*L)/(2*(M_PI)*v));
-    std::printf("d% \t %25.15e\n", f, (zn(ar1, ar2))/(zc(ar1, ar2)));     
+    std::printf("d% \t %25.15e\n", f, std::log((zn(ar1, ar2))/(zc(ar1, ar2))));     
 }
 return 0;
 }
