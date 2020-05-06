@@ -23,4 +23,4 @@ The Lattice Boltzmann code is already done in c++.
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Leader: Andre Mora
 
 
-Homepage: http://flute-instrument.ddns.net/redmine/my/page
+Homepage: http://flute-instrument.ddns.net/redmine/projects/instrumental-characterization
