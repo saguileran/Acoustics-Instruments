@@ -8,6 +8,20 @@ Project Documentation
 > * Read: https://www.overleaf.com/read/bgjwrzspkgdm
 
 
+**Logbook**
+
+> * Edit: https://www.overleaf.com/2573749657hpsqnhjpcypw
+
+> * Read: https://www.overleaf.com/read/rwxttbqpjzdt  
+
+
+**Audio Formats**
+
+> * Edit: https://www.overleaf.com/2573749657hpsqnhjpcypw
+
+> * Read: https://www.overleaf.com/read/rwxttbqpjzdt  
+
+
 
 **Measurement Protocols**
 
