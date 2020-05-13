@@ -1,4 +1,15 @@
-const float fmax = 100000.0; //Frecuencia Maxima
+#define _USE_MATH_DEFINES
+#include <iostream>
+#include <cmath>
+#include <cstdio>
+
+double zn(double b, double d);
+double zc(double g, double h);
+
+int main()
+{
+const float fmin = 0.0; //Frecuencia Minima
+const float fmax = 5000.0; //Frecuencia Maxima
 float f = fmin; //Frecuencia
 double al; // Parametro alpha 1/m
 const float L = 0.2; //Longitud Flauta m
@@ -15,7 +26,7 @@ for(int n = 1; n <= N; n++){ //Pasos de avance de frecuencia
     al = (0.00003*(std::sqrt(f)))/a;
     v = c*(1.0 - ((0.00165)/(a*(std::sqrt(f)))));
     ar1 = al*L;
-    ar2 = ((f*L)/(2*(M_PI)*v));
+    ar2 = ((f*L*2*(M_PI))/(v));
     std::printf("%f \t %25.15e\n", f, (zn(ar1, ar2))/(zc(ar1, ar2)));     
 }
 return 0;
