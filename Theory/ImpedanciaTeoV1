@@ -1,15 +1,4 @@
-#define _USE_MATH_DEFINES
-#include <iostream>
-#include <cmath>
-#include <cstdio>
-
-double zn(double b, double d);
-double zc(double g, double h);
-
-int main()
-{
-const float fmin = 0.0; //Frecuencia Minima
-const float fmax = 10000.0; //Frecuencia Maxima
+const float fmax = 100000.0; //Frecuencia Maxima
 float f = fmin; //Frecuencia
 double al; // Parametro alpha 1/m
 const float L = 0.2; //Longitud Flauta m
@@ -18,16 +7,16 @@ const float c = 343.0;//Velocidad del sonido m/s
 const float a = 0.02; //Radio de la flauta m
 double ar1; //Argumento 1 de la funcion
 double ar2; //Argumento 2 de la funcion
-float i;
+const float df = 10.0;
+const float N = (fmax-fmin)/df;
 
-for(int n = 1; n <= fmax; n++){ //Pasos de avance de frecuencia
-    i = 10*n;
-    f = fmin + i;
-    al = (0.0000003*(std::sqrt(f)))/a;
-    v = c*(1.0 - ((0.0000165)/(a*(std::sqrt(f)))));
+for(int n = 1; n <= N; n++){ //Pasos de avance de frecuencia
+    f = fmin + df*n;
+    al = (0.00003*(std::sqrt(f)))/a;
+    v = c*(1.0 - ((0.00165)/(a*(std::sqrt(f)))));
     ar1 = al*L;
     ar2 = ((f*L)/(2*(M_PI)*v));
-    std::printf("%f \t %25.15e\n", f, std::log((zc(ar1, ar2))/(zn(ar1, ar2))));     
+    std::printf("%f \t %25.15e\n", f, (zn(ar1, ar2))/(zc(ar1, ar2)));     
 }
 return 0;
 }
