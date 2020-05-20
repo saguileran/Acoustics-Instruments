@@ -10,7 +10,8 @@ from scipy.signal import find_peaks
 import pandas as pd
 
 #mypath = '/home/sebas/Documents/Recorders/WavFiles/'
-mypath = input('Enter location of folder: ')
+mypath = '/home/sebas/Documents/Recorders/Felipe/MedicionesFelipe/NotasFelipe/'
+#mypath = input('Enter location of folder: ')
 #file = 'Flute-D.wav'
 
 def PlotSpectrogram(file):
@@ -28,7 +29,7 @@ def PlotSpectrogram(file):
     librosa.display.specshow(S_dB, x_axis='time',y_axis='mel', sr=sr, fmax=sr/2)
     plt.colorbar(format='%+2.0f dB')
     plt.title(file[:-4]+' Spectrogram')
-    plt.savefig(mypath+file[:-4]+'-spectro')
+    plt.savefig(mypath+'Images/'+file[:-4]+'-spectro')
     plt.pause(1)
     
 def Plot(file):
@@ -41,7 +42,7 @@ def Plot(file):
     plt.yticks(np.arange(0, (np.nanmax(dB)//10+2)*10, step=10))
     plt.ylabel('dB')
     plt.title(file[:-4] + ' dB')
-    plt.savefig(mypath+file[:-4])
+    plt.savefig(mypath+'Images/'+file[:-4])
     plt.pause(1)
 
 def PlotDbvsHz(file):
@@ -69,9 +70,9 @@ def PlotDbvsHz(file):
     
     #exporting with pandas
     df = pd.DataFrame(np.transpose(peakscoord), columns=['Hz', 'dB'])
-    df.to_csv(path_or_buf=mypath+file+'-peaks', index=False, sep=' ')
+    df.to_csv(path_or_buf=mypath+'Images/'+file+'-peaks.csv', index=False, sep=' ')
     plt.title(file[:-4]+' Decibels Vs Frequency')
-    plt.savefig(mypath+file[:-4]+'-FreVsDb')
+    plt.savefig(mypath+'Images/'+file[:-4]+'-FreVsDb')
     plt.pause(1)
 
 onlyfiles = [file for file in listdir(mypath) if isfile(join(mypath, file))]
