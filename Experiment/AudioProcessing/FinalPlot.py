@@ -9,8 +9,8 @@ from scipy.io import wavfile
 from scipy.signal import find_peaks
 import pandas as pd
 
-#mypath = '/home/sebas/Documents/Recorders/WavFiles/'
-mypath = input('Enter location of folder: ')
+mypath = '/home/sebas/Documents/Recorders/Lina/'
+#mypath = input('Enter location of folder: ')
 #file = 'Flute-D.wav'
 
 def PlotSpectrogram(file):
@@ -77,6 +77,30 @@ def PlotDbvsHz(file):
 onlyfiles = [file for file in listdir(mypath) if isfile(join(mypath, file))]
 formats, names = [formato[-3:] for formato in onlyfiles], [name[:-4] for name in onlyfiles]
 
+file = onlyfiles[7]
+
+plt.clf()
+samplingFrequency, signalData = wavfile.read(mypath+file)
+dB, dim = 20*np.log10(signalData/100), len(signalData)
+times = np.arange(0, dim/samplingFrequency, 1/samplingFrequency)
+plt.plot(times, dB)
+plt.xlabel('Time (s)')
+#plt.yticks(np.arange(0, (np.nanmax(dB)//10+2)*10, step=10))
+plt.ylabel('dB')
+plt.title(file[:-4] + ' dB')
+plt.savefig(mypath+file[:-4])
+plt.pause(1)
+
+
+from numpy import fft as fft
+
+fourier=fft.fft(signalData)
+
+plt.plot(fourier[:len(signalData)//2], color='#ff7f00')
+plt.xlabel('k')
+plt.ylabel('Amplitude')
+
+'''
 for file in onlyfiles:
     if 'wav' in file and 'peak' not in file:
         Plot(file)
@@ -84,3 +108,4 @@ for file in onlyfiles:
         print(file)
         print(' ')
     elif 'txt' in file and 'peak' not in file: PlotDbvsHz(file)
+'''
