@@ -31,9 +31,28 @@ def dft_map(X, Fs, shift=True):
     f = n * resolution
     return f, Y
 
-def Peaks(coefficients_weight):
-     peaks, _ = find_peaks(coefficients_weight[:samples//2], distance=150, height=10)
+def Peaks(coefficients_weight, frequencies, distance=150, height=10):
+     peaks, _ = find_peaks(coefficients_weight[:samples//2], distance=distance, height=height)
      return peaks, frequencies[peaks]
+
+def Smooth(x,window_len=11,window='hanning'):
+    
+    if x.ndim != 1: raise ValueError( "smooth only accepts 1 dimension arrays.")
+    if x.size < window_len: raise ValueError( "Input vector needs to be bigger than window size.")
+
+    if window_len<3: return x
+
+    if not window in ['flat', 'hanning', 'hamming', 'bartlett', 'blackman']:
+        raise ValueError ("Window is on of 'flat', 'hanning', 'hamming', 'bartlett', 'blackman'")
+
+    s = np.r_[x[window_len-1:0:-1],x,x[-2:-window_len-1:-1]]
+    
+    if window == 'flat': w = np.ones(window_len,'d')#moving average
+    else: w=eval('np.'+window+'(window_len)')
+
+    y = np.convolve(w/w.sum(),s,mode='valid')
+    return y[(window_len//2-1):-(window_len//2)]
+    
 #a temp folder for downloads
 temp_folder = '/home/sebas/Documents/Acoustics-Instruments/Experiment/Measurements/Audacity/Flute/Lina/C.wav'
 #file = '/C.wav'
@@ -78,14 +97,14 @@ pressure = p0*10**(SPL/20)
 fig = plt.figure(figsize=(15, 24))
 plt.subplots_adjust(hspace = 0.4)
 
-fig.add_subplot(6,1,1)
+fig.add_subplot(7,1,1)
 plt.title('Waveform')
 plt.plot(time, audData, linewidth=0.1, alpha=0.7, color='red')
 plt.xticks(np.arange(0, time[-1], step=0.25))
 plt.xlabel('Time (s)')
 plt.ylabel('Amplitude')
 
-fig.add_subplot(6,1,2)
+fig.add_subplot(7,1,2)
 plt.title('Amplitude Coefficients of FFT')
 plt.xlabel('Frequencies (Hz)')
 plt.ylabel('Weight')
@@ -96,15 +115,15 @@ plt.plot(frequencies, coefficients_weight)
 #plt.xlabel('k')
 #plt.ylabel('Amplitude')
 
-fig.add_subplot(6,1,3)
+fig.add_subplot(7,1,3)
 plt.title('dB')
-Time, SPLR = ReduceVectors(time, SPL)
+Time, SPLR = ReduceVectors(time, SPL, 5)
 plt.plot(Time, SPLR, color='red')
 plt.xlim([2, 3])
 plt.xlabel('time (s)')
 plt.ylabel('dB')
 
-fig.add_subplot(6,1,4)
+fig.add_subplot(7,1,4)
 plt.title('Tone')
 x, y = freqArray/1000,  20*np.log10(fourier1)
 X_pro, Y_pro = ReduceVectors(x, y)
@@ -115,7 +134,22 @@ plt.xlabel('Frequency (kHz)')
 plt.ylabel('Power (dB)')
 plt.xlim(0, 10/2)
 
-fig.add_subplot(6,1,5)
+
+fig.add_subplot(7,1,5)
+plt.title('Smooth Tone')
+
+Y_pro = Smooth(Y_pro, 30)
+x = (1/1000)*np.arange(0, (len(Y_pro)), 1.0) * (rate*1.0/len(Y_pro));
+
+plt.plot(X_pro , Y_pro, color='#ff7f00', linewidth=0.5)
+plt.xticks(np.arange(0, 10, step=0.25))
+#plt.yticks(np.arange(-50, 50, step=10))
+plt.xlabel('Frequency (kHz)')
+plt.ylabel('Power (dB)')
+plt.xlim(0, 10/2)
+
+
+fig.add_subplot(7,1,6)
 plt.title('Pressure')
 T, P = ReduceVectors(time, pressure/c, 1)
 plt.loglog(T, P, color='red')
@@ -124,7 +158,7 @@ plt.xlabel('time (s)')
 plt.ylabel('Pressure (Pa)')
 
 
-fig.add_subplot(6,1,6)
+fig.add_subplot(7,1,7)
 '''
 Pxx, freqs, bins, im = plt.specgram(audData, Fs=rate, NFFT=1024, cmap=plt.get_cmap('autumn_r'))
 cbar=plt.colorbar(im)
