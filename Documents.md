@@ -25,7 +25,6 @@ Project Documentation
 
 **Measurement Protocols**
 
-* Several Applications
   
 > * Edit: https://www.overleaf.com/6354285942czyjsvzggzsx
 
