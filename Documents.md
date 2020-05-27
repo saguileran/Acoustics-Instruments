@@ -32,7 +32,7 @@ Project Documentation
 > * Read: https://www.overleaf.com/read/dhjpjcbzbwcc
     
 
-**Music Glossary **
+**Music Glossary**
   
 > * Edit: https://www.overleaf.com/project/5eb29418da3c81000146a1c6
 
