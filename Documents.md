@@ -32,8 +32,8 @@ Project Documentation
 > * Read: https://www.overleaf.com/read/dhjpjcbzbwcc
     
 
-* Audacity
+**Music Glossary **
   
-> * Edit: 
+> * Edit: https://www.overleaf.com/project/5eb29418da3c81000146a1c6
 
 > * Read: 
