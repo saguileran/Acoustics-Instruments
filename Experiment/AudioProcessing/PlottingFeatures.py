@@ -31,12 +31,13 @@ def dft_map(X, Fs, shift=True):
     f = n * resolution
     return f, Y
 
-def Peaks(coefficients_weight, frequencies, distance=150, height=10):
+def Peaks(coefficients_weight, frequencies, distance=150, height=-20):
      peaks, _ = find_peaks(coefficients_weight[:samples//2], distance=distance, height=height)
-     return peaks, frequencies[peaks]
+     #return peaks, frequencies[peaks]
+     return frequencies[peaks], coefficients_weight[peaks]
 
 def Smooth(x,window_len=11,window='hanning'):
-    
+    dim = len(x)
     if x.ndim != 1: raise ValueError( "smooth only accepts 1 dimension arrays.")
     if x.size < window_len: raise ValueError( "Input vector needs to be bigger than window size.")
 
@@ -51,7 +52,9 @@ def Smooth(x,window_len=11,window='hanning'):
     else: w=eval('np.'+window+'(window_len)')
 
     y = np.convolve(w/w.sum(),s,mode='valid')
-    return y[(window_len//2-1):-(window_len//2)]
+    smooted = y[(window_len//2-1):-(window_len//2)]
+    if dim == len(smooted):return smooted
+    else: return smooted[:dim]
     
 #a temp folder for downloads
 temp_folder = '/home/sebas/Documents/Acoustics-Instruments/Experiment/Measurements/Audacity/Flute/Lina/C.wav'
@@ -61,7 +64,7 @@ temp_folder = '/home/sebas/Documents/Acoustics-Instruments/Experiment/Measuremen
 #read wav file
 rate, audData = scipy.io.wavfile.read(temp_folder)
 samples = audData.shape[0]
-#chanels = 1
+chanels = len(audData.shape)
 #audData = 
 #if chanels==2: audData = np.sum(audData.astype(float), axis=1, keepdims= True)/2
 #else: audData = audData.reshape(samples, 1)
@@ -94,17 +97,17 @@ pressure = p0*10**(SPL/20)
 #plt.xlabel('Frequency (kHz)')
 #plt.ylabel('Power (dB)')
 
-fig = plt.figure(figsize=(15, 24))
-plt.subplots_adjust(hspace = 0.4)
+fig = plt.figure(figsize=(40, 24))
+plt.subplots_adjust(hspace = 0.4, wspace = 0.2)
 
-fig.add_subplot(7,1,1)
+fig.add_subplot(4,2,1)
 plt.title('Waveform')
 plt.plot(time, audData, linewidth=0.1, alpha=0.7, color='red')
 plt.xticks(np.arange(0, time[-1], step=0.25))
 plt.xlabel('Time (s)')
 plt.ylabel('Amplitude')
 
-fig.add_subplot(7,1,2)
+fig.add_subplot(4,2,5)
 plt.title('Amplitude Coefficients of FFT')
 plt.xlabel('Frequencies (Hz)')
 plt.ylabel('Weight')
@@ -115,19 +118,20 @@ plt.plot(frequencies, coefficients_weight)
 #plt.xlabel('k')
 #plt.ylabel('Amplitude')
 
-fig.add_subplot(7,1,3)
+fig.add_subplot(4,2,3)
 plt.title('dB')
-Time, SPLR = ReduceVectors(time, SPL, 5)
-plt.plot(Time, SPLR, color='red')
+#Time, SPLR = ReduceVectors(time, SPL, 10)
+plt.plot(time, Smooth(SPL, 25), color='red')
 plt.xlim([2, 3])
 plt.xlabel('time (s)')
 plt.ylabel('dB')
 
-fig.add_subplot(7,1,4)
-plt.title('Tone')
+fig.add_subplot(4,2,2)
+plt.title('Pure Tone')
 x, y = freqArray/1000,  20*np.log10(fourier1)
 X_pro, Y_pro = ReduceVectors(x, y)
-plt.plot(X_pro, Y_pro, color='#ff7f00', linewidth=0.5)
+#plt.plot(X_pro, abs(Y_pro), color='#ff7f00', linewidth=0.5)
+plt.plot(x, y, color='#ff7f00', linewidth=0.5)
 plt.xticks(np.arange(0, 10, step=0.25))
 #plt.yticks(np.arange(-50, 50, step=10))
 plt.xlabel('Frequency (kHz)')
@@ -135,30 +139,74 @@ plt.ylabel('Power (dB)')
 plt.xlim(0, 10/2)
 
 
-fig.add_subplot(7,1,5)
-plt.title('Smooth Tone')
+fig.add_subplot(4,2,4)
+plt.title('Smooth Tone and Peaks')
 
 Y_pro = Smooth(Y_pro, 30)
 x = (1/1000)*np.arange(0, (len(Y_pro)), 1.0) * (rate*1.0/len(Y_pro));
+X_peaks, Y_peaks = Peaks(Y_pro, X_pro, distance=1)
 
-plt.plot(X_pro , Y_pro, color='#ff7f00', linewidth=0.5)
-plt.xticks(np.arange(0, 10, step=0.25))
+plt.plot(X_pro , Y_pro.real, color='#ff7f00', linewidth=1.0)
+plt.scatter(X_peaks , Y_peaks.real, s=100)
+
+for x,y in zip(X_peaks, Y_peaks.real):
+    #label = "({:.2f}, {:.2f})".format(1000*x,y)
+    label = "{:.2f}".format(1000*x)
+    plt.annotate(label, # this is the text
+                 (x,y), # this is the point to label
+                 textcoords="offset points", # how to position the text
+                 xytext=(0,15), # distance from text to points (x,y)
+                 ha='center') # horizontal alignment can be left, right or center
+
 #plt.yticks(np.arange(-50, 50, step=10))
 plt.xlabel('Frequency (kHz)')
 plt.ylabel('Power (dB)')
+plt.grid()
+plt.xticks(np.arange(0, 10, step=0.25))
+plt.xlim(0, 10/2)
+plt.ylim(np.min(Y_pro.real), np.max(Y_pro.real)+10)
+
+
+
+
+'''
+ax = fig.add_subplot(4,2,6)
+plt.title('Peaks')
+X_peaks, Y_peaks = Peaks(Y_pro, X_pro, distance=1)
+#plt.xticks(np.arange(0, 10, step=0.25))
+#plt.grid()
+plt.xticks(np.arange(0, 10, step=0.25))
 plt.xlim(0, 10/2)
 
+plt.scatter(X_peaks , Y_peaks, s=100)
 
-fig.add_subplot(7,1,6)
+for x,y in zip(X_peaks, Y_peaks):
+    #label = "({:.2f}, {:.2f})".format(1000*x,y)
+    label = "{:.2f}".format(1000*x)
+    plt.annotate(label, # this is the text
+                 (x,y), # this is the point to label
+                 textcoords="offset points", # how to position the text
+                 xytext=(0,15), # distance from text to points (x,y)
+                 ha='center') # horizontal alignment can be left, right or center
+#for xy in zip(X_peaks , Y_peaks): 
+#    print(xy)                                      # <--
+#    ax.annotate('(%s, %s)' % truncate(xy, 2), xy=xy, textcoords='data') # <--
+
+plt.xlabel('Frequency (kHs)')
+plt.ylabel('Power (dB)')
+'''
+
+fig.add_subplot(4,2,6)
 plt.title('Pressure')
 T, P = ReduceVectors(time, pressure/c, 1)
 plt.loglog(T, P, color='red')
 plt.xlim([10**-3, 10])
 plt.xlabel('time (s)')
 plt.ylabel('Pressure (Pa)')
+plt.xlim(10**-2, 10)
 
 
-fig.add_subplot(7,1,7)
+fig.add_subplot(4,2,7)
 '''
 Pxx, freqs, bins, im = plt.specgram(audData, Fs=rate, NFFT=1024, cmap=plt.get_cmap('autumn_r'))
 cbar=plt.colorbar(im)
@@ -178,5 +226,51 @@ plt.colorbar(format='%+2.0f dB')
 plt.title('Spectrogram')
 
 
+
 plt.show()
+plt.close()
+
+
+fig = plt.figure(figsize=(20, 20))
+plt.subplots_adjust(hspace = 0.2, wspace = 0.2)
+
+
+fig.add_subplot(2,2,1)
+plt.plot(X_peaks, 'o')
+plt.xticks(np.arange(0, len(X_peaks), step=1))
+plt.yticks(np.arange(0, np.max(X_peaks)+0.1, step=0.25))
+plt.xlabel("Frequency number (f_i)")
+plt.ylabel("Frequency (KHz)")
+plt.grid()
+
+fig.add_subplot(2,2,2)
+Y_norm = Y_peaks.real - np.min(Y_peaks.real)
+plt.plot(Y_norm , 'o')
+plt.xticks(np.arange(0, len(Y_norm), step=1))
+#plt.yticks(np.arange(0, 5.1, step=0.25))
+plt.xlabel("Frequency number (f_i)")
+plt.ylabel("Manitud dB")
+plt.grid()
+
+fig.add_subplot(2,2,3)
+index_main_frequecy = np.where(np.max(Y_peaks.real) == Y_peaks.real)
+X_norm = X_peaks/X_peaks[index_main_frequecy]
+plt.plot(X_norm , 'o')
+plt.xticks(np.arange(0, len(X_norm ), step=1))
+plt.yticks(np.arange(0, np.max(X_norm ), step=0.5))
+plt.xlabel("Frequency number (f_i)")
+plt.ylabel("Frequency/F_0")
+plt.grid()
+
+fig.add_subplot(2,2,4)
+Y_peaks_diff = [abs(Y_peaks[i+1] - Y_peaks[i]) for i in range(len(Y_peaks)-1)]
+#Y_norm_fraction = Y_peaks/Y_peaks[index_main_frequecy]
+#Y_norm_fraction= Y_norm_fraction**-1
+plt.plot(Y_peaks_diff, 'o')
+plt.xticks(np.arange(0, len(X_peaks), step=1))
+#plt.yticks(np.arange(0, 5.1, step=0.25))
+plt.xlabel("Frequency number (f_i)")
+plt.ylabel("Differences (dB)")
+plt.grid()
+
 

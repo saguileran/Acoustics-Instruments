@@ -34,12 +34,12 @@ void display(void)
 
 	/* Setup the view of the cube. */
 	glMatrixMode(GL_PROJECTION);
-	gluPerspective( /* field of view in degree */ 40.0,
-			/* aspect ratio */ 1.0,
+	gluPerspective( /* field of view in degree */ 120.0,
+			/* aspect ratio */ 2.0,
 	  			/* Z near */ 1.0, /* Z far */ 10.0);
 	//  glMatrixMode(GL_MODELVIEW);
-      gluLookAt(10.0, 5.0, 5.0,  /* eye is at (0,0,5) */
-      	  0.0, 0.0, 0.0,      /* center is at (0,0,0) */
+      gluLookAt(20.0, 50.0, 50.0,  /* eye is at (0,0,5) */
+      	  10.0, 10.0, 10.0,      /* center is at (0,0,0) */
       		  0.0, 1.0, 0.);      /* up is in positive Y direction */
       }
     }
@@ -59,7 +59,7 @@ void init(void)
   GLfloat aspect = (GLfloat)width / (GLfloat)height;
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  glTranslatef(-0.75f, -0.15f, -0.0f);  // Move into the screen
+  glTranslatef(-0.25f, -0.1f, -0.0f);  // Move into the screen
   //glOrtho(-1, 1, -1, 1, -1, -0);
 
   /*
@@ -73,8 +73,8 @@ void init(void)
  
    // Render a color-cube consisting of 6 quads with different colors
   //glLoadIdentity();                 // Reset the model-view matrix
-  //glTranslatef(-0.6f, -0.5f, -0.0f);  // Move right and into the screen
-  gluLookAt(0.0, 0.0, 0.0, 0.0, 0.0, -100.0, 0.0, 1.0, 0.0);
+  //  glTranslatef(0.4f, -0.2f, -0.0f);  // Move right and into the screen
+  gluLookAt(0.0, 0.0, 0.0, 0.0, 0.0, -10.0, 0.0, 1.0, 0.0);
   
  
 
@@ -141,7 +141,7 @@ int main(int argc, char** argv)
   std::cout << "set cbrange[-1:1]" << std::endl;
   std::cout << "set xrange[-1:41]; set yrange[-1:41]; set zrange[-1:5]" << std::endl;
   */
-  Ondas.Inicie(0,0,0,0);
+  //Ondas.Inicie(0,0,0,0);
   /*
   for(t=0;t<tmax;t++){
     Ondas.Colisione();
