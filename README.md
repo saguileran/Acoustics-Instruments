@@ -3,9 +3,6 @@
 
 A scientist is a person who never stops to ask neither investigate, they have a huge curiosity for the surrounding world and how it works. Thanks to this quality we could develop a universal language that everyone can ear and feel.... the music, what will be without it? This curiosity characterizes the human being leading him to invent the first instrument that dates back 40000 years old, a bone flute from the city of Geißenklösterle. 
 
-<img src="https://cdn.mos.cms.futurecdn.net/6KDfvXEaoeFYdEdvKAqnkR-1200-80.jpg" width="400">
-
-
 Now, the flute is one of the most common instruments in the world and it is accessible to many people to play it. 
 
 As physics, we can study music from waves and oscillations theory, but we can also measure acoustic properties and simulate sound waves. The present project has the goal to study and characterize some properties of instrumental acoustics from the three branches of physics:
