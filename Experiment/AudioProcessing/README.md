@@ -23,10 +23,6 @@ We suggest that run AllPlots script to get all the information and analysis, to 
  
 If you are using linux machine it can be done executing : **sudo apt-get install python-scipy python-matplotlib python-numpy python-librosa python-pandas**. The most easy way is install anaconda and make it from graphical interface.
 To run you enter **python  AllPlots.py** in terminal, if you can measure the time spent add time at begining. 
-After enter this code you have to give the folder direction, it has to end in / in other case the script doesn't work,
+After enter this code you have to give the folder direction, it has to end in / in other case the script doesn't work.
 
 It is tasted in linux SO, windows will be tested soon.
-  
-  
- 
-  
