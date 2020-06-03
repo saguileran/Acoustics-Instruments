@@ -96,7 +96,7 @@ from numpy import fft as fft
 
 fourier=fft.fft(signalData)
 
-plt.plot(fourier[:len(signalData)//2], color='#ff7f00')
+plt.plot(fourier[:len(signatemp_folderlData)//2], color='#ff7f00')
 plt.xlabel('k')
 plt.ylabel('Amplitude')
 
