@@ -54,7 +54,7 @@ void LatticeBoltzmann::Colisione(void){
 	if(ix == 20 &&  iy >= Ly/2 - LFy/2 && iy <= Ly/2 + LFy/2 ) {
 	  fnew[ix][iy][1] = kF * fnew[ix][iy][2]; fnew[ix][iy][2] = kF * fnew[ix][iy][1];
 	}
-	else if(ix == Lx - 1 || ix == 0){ fnew[ix][iy][1] = 0; fnew[ix][iy][3] = 0; } 
+	else if(ix == Lx - 1 || ix == 1){ fnew[ix][iy][1] = 0; fnew[ix][iy][3] = 0; } 
 	else{ fnew[ix][iy][1] = UmUtau*f[ix][iy][1] + Utau*feq(rho0, Jx0, Jy0, 1);
     	      fnew[ix][iy][3] = UmUtau*f[ix][iy][3] + Utau*feq(rho0, Jx0, Jy0, 3); }
 
@@ -64,7 +64,7 @@ void LatticeBoltzmann::Colisione(void){
 	  {
 	  fnew[ix][iy][4] =  kF * fnew[ix][iy][2]; fnew[ix][iy][4] =  kF * fnew[ix][iy][4];
 	}
-	else if(iy == Ly - 1 || iy == 0){ fnew[ix][iy][2] = 0; fnew[ix][iy][4] = 0; } 
+	else if(iy == Ly - 2 || iy == 1){ fnew[ix][iy][2] = 0; fnew[ix][iy][4] = 0; } 
 	else{ fnew[ix][iy][2] = UmUtau*f[ix][iy][2] + Utau*feq(rho0, Jx0, Jy0, 2);
 	      fnew[ix][iy][4] = UmUtau*f[ix][iy][4] + Utau*feq(rho0, Jx0, Jy0, 4); }
 
@@ -83,7 +83,7 @@ void LatticeBoltzmann::Adveccione(void){
       for(int i=0;i<Q;i++)
 	if( ix + V[0][i] < Lx && ix + V[0][i] >= 0 && iy + V[1][i] < Ly && iy + V[1][i] < Ly){ //This condition disable lattice periodicity
 	  f[(ix+V[0][i]+Lx)%Lx][(iy+V[1][i]+Ly)%Ly][i] = fnew[ix][iy][i];}
-}
+  }
 }
 void LatticeBoltzmann::Inicie(double rho0,double Jx0,double Jy0){
   #pragma omp paralel for
