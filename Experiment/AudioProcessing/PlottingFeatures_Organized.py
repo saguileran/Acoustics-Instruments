@@ -56,7 +56,9 @@ if __name__ == "__main__":
     #a temp folder for downloads
     
     #temp_folder = '/home/sebas/Documents/Acoustics-Instruments/Experiment/Measurements/Audacity/Flute/Test/' #'C.wav'
-    temp_folder = '/home/sebas/Documents/Recorders/Test/'
+    #temp_folder = '/home/sebas/Documents/Recorders/Test/Data/'
+    temp_folder = input('Enter direction to folder files')
+    temp_folder = temp_folder + '/Data/'
     
     onlyfiles = [file for file in listdir(temp_folder ) if isfile(join(temp_folder , file))]
     formats, names = [formato[-3:] for formato in onlyfiles], [name[:-4] for name in onlyfiles]
