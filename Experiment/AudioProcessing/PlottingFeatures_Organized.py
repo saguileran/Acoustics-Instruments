@@ -57,8 +57,8 @@ if __name__ == "__main__":
     
     #temp_folder = '/home/sebas/Documents/Acoustics-Instruments/Experiment/Measurements/Audacity/Flute/Test/' #'C.wav'
     #temp_folder = '/home/sebas/Documents/Recorders/Test/Data/'
-    temp_folder = input('Enter direction to folder files')
-    temp_folder = temp_folder + '/Data/'
+    temp_folder = input('Enter direction to folder files: ')
+    #temp_folder = temp_folder + '/Data/'
     
     onlyfiles = [file for file in listdir(temp_folder ) if isfile(join(temp_folder , file))]
     formats, names = [formato[-3:] for formato in onlyfiles], [name[:-4] for name in onlyfiles]
@@ -168,12 +168,12 @@ if __name__ == "__main__":
         #plt.yticks(np.arange(0, 10000, step=1000))
         plt.colorbar(format='%+2.0f dB')
         
-        plt.savefig(temp_folder + "Plots - " + file[:-4])
+        plt.savefig(temp_folder + '/Data/' + "Plots - " + file[:-4])
         plt.show()
         plt.close()
         
         Data = pd.DataFrame({'freq': X_peaks*1000, 'dB': Y_peaks.real})
-        Data.to_csv(temp_folder + "Peaks - " + file[:-4])
+        Data.to_csv(temp_folder  + '/Data/' + "Peaks - " + file[:-4])
         
         #----------------_Harmonics analysis----------
         #2,2,2
@@ -211,7 +211,7 @@ if __name__ == "__main__":
         plt.xticks(np.arange(0, len(X_peaks), step=1)); #plt.yticks(np.arange(0, 5.1, step=0.25))
         plt.xlabel("Frequency number (f_i)"); plt.ylabel("Differences (dB)"); plt.grid()
         
-        plt.savefig(temp_folder + "Harmonics Analysis - " + file[:-4])
+        plt.savefig(temp_folder + '/Data/'  + "Harmonics Analysis - " + file[:-4])
         plt.show()
         plt.close()
         
