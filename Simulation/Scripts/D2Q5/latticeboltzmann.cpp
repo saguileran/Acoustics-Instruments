@@ -60,7 +60,7 @@ void LatticeBoltzmann::Colisione(void){
       	//      fnew[ix][iy][4] = UmUtau*f[ix][iy][4] + Utau*feq(rho0, Jx0, Jy0, 4); }
 	
 
-	if(((ix == 20 &&  iy > Ly/2 - LFy/2 && iy < Ly/2 + LFy/2) || (ix == 20 + LFx &&  iy > Ly/2 - LFy/2 && iy < Ly/2 + LFy/2)) && not(ix == Lx - 1 || ix == 0) ) {
+	if((ix == 20 &&  iy > Ly/2 - LFy/2 && iy < Ly/2 + LFy/2) && not(ix == Lx - 1 || ix == 0) ) {
 	  fnew[ix][iy][1] = kF * fnew[ix][iy][2]; fnew[ix][iy][2] = kF * fnew[ix][iy][1];
 	}
 	else if(ix == Lx - 1 || ix == 0){ fnew[ix][iy][1] = 0; fnew[ix][iy][2] = 0; } 
