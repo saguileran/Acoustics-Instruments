@@ -9,24 +9,26 @@
   Para proportion=12 se manejaron valores de lambda=20 y A=150.
   Además de que se comienza a graficar en x=5, para no ver la fuente inicial.
 */
-const int proportion=1;
-const int Lx=100*proportion;
-const int Ly=100*proportion;
+const int proportion = 2;
+const int Lx = 100*proportion, Ly = 100*proportion;
+const int LFx = 32*(proportion + 1), LFy = 16*(proportion + 1);
+
+const double k1 = 0, k2 = 0, kF = 1.0;
 //const int Lz=17*proportion;
 
 //
 
-const int Q=5;
-const double W0=1.0/3;
-const double k=1; //Constante de reflexión
+const int Q = 5;
+const double W0 = 1.0 / 3;
+const double k = 1; //Constante de reflexión
 
-const double C=0.5; // C<0.707 celdas/click
-const double TresC2=3*C*C;
-const double AUX0=1-TresC2*(1-W0);
+const double C = 0.5; // C<0.707 celdas/click
+const double TresC2 = 3 * C * C;
+const double AUX0 = 1 - TresC2 * (1 - W0);
 
-const double tau=0.5;
-const double Utau=1.0/tau;
-const double UmUtau=1-Utau;
+const double tau = 0.5;
+const double Utau = 1.0 / tau;
+const double UmUtau = 1 - Utau;
 
 class LatticeBoltzmann
 {

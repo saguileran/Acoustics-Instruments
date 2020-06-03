@@ -48,10 +48,34 @@ void LatticeBoltzmann::Colisione(void){
   for(iy=0;iy<Ly;iy++){
     for(ix=0;ix<Lx;ix++){
         //Calcular las cantidades macroscópicas
-	rho0 = rho(ix, iy, false);  Jx0 = Jx(ix, iy, false);  Jy0 = Jy(ix, iy, false);  
-        for(i=0; i<Q; i++){
-	 fnew[ix][iy][i] = UmUtau*f[ix][iy][i] + Utau*feq(rho0, Jx0, Jy0, i);
-      }
+	rho0 = rho(ix, iy, false);  Jx0 = Jx(ix, iy, false);  Jy0 = Jy(ix, iy, false);
+	fnew[ix][iy][0] = UmUtau*f[ix][iy][0] + Utau*feq(rho0, Jx0, Jy0, 0);
+	
+	//	if(ix == Lx - 1 || ix == 0){ fnew[ix][iy][1] = k1 * fnew[ix][iy][2]; fnew[ix][iy][2] = k1 * fnew[ix][iy][1]; } 
+	//else{ fnew[ix][iy][1] = UmUtau*f[ix][iy][1] + Utau*feq(rho0, Jx0, Jy0, 1);
+      	//      fnew[ix][iy][2] = UmUtau*f[ix][iy][2] + Utau*feq(rho0, Jx0, Jy0, 2); }
+
+	//if(iy == Ly - 1 || iy == 0){ fnew[ix][iy][3] = k2 * fnew[ix][iy][4]; fnew[ix][iy][4] = k2 * fnew[ix][iy][3];}
+	//else{ fnew[ix][iy][3] = UmUtau*f[ix][iy][3] + Utau*feq(rho0, Jx0, Jy0, 3);
+      	//      fnew[ix][iy][4] = UmUtau*f[ix][iy][4] + Utau*feq(rho0, Jx0, Jy0, 4); }
+	
+
+	if(((ix == 20 &&  iy > Ly/2 - LFy/2 && iy < Ly/2 + LFy/2) || (ix == 20 + LFx &&  iy > Ly/2 - LFy/2 && iy < Ly/2 + LFy/2)) && not(ix == Lx - 1 || ix == 0) ) {
+	  fnew[ix][iy][1] = kF * fnew[ix][iy][2]; fnew[ix][iy][2] = kF * fnew[ix][iy][1];
+	}
+	else if(ix == Lx - 1 || ix == 0){ fnew[ix][iy][1] = 0; fnew[ix][iy][2] = 0; } 
+	else{ fnew[ix][iy][1] = UmUtau*f[ix][iy][1] + Utau*feq(rho0, Jx0, Jy0, 1);
+	  fnew[ix][iy][2] = UmUtau*f[ix][iy][2] + Utau*feq(rho0, Jx0, Jy0, 2); }
+
+	if(((iy == Ly/2 - LFy/2 &&  ix > 20 && ix <= 20 + LFx) || (iy == Ly/2 + LFy/2  &&  ix > 20 && ix <= 20 + LFx)) && not( iy == Ly - 1 || iy  == 0)) {
+	  fnew[ix][iy][4] = k1 * fnew[ix][iy][3]; fnew[ix][iy][3] = k1 * fnew[ix][iy][4];
+	}
+	else if(iy == Ly - 1 || iy == 0){ fnew[ix][iy][3] = 0; fnew[ix][iy][4] = 0; } 
+	else{ fnew[ix][iy][3] = UmUtau*f[ix][iy][3] + Utau*feq(rho0, Jx0, Jy0, 3);
+	  fnew[ix][iy][4] = UmUtau*f[ix][iy][4] + Utau*feq(rho0, Jx0, Jy0, 4); }
+
+
+	//for(i=0; i<Q; i++){ fnew[ix][iy][i] = UmUtau*f[ix][iy][i] + Utau*feq(rho0, Jx0, Jy0, i);}
     }
   }
  }
@@ -63,7 +87,8 @@ void LatticeBoltzmann::Adveccione(void){
   for(int ix=0;ix<Lx;ix++)
     for(int iy=0;iy<Ly;iy++)
       for(int i=0;i<Q;i++)
-	f[(ix+V[0][i]+Lx)%Lx][(iy+V[1][i]+Ly)%Ly][i] = fnew[ix][iy][i];
+	if( ix + V[0][i] < Lx && ix + V[0][i] >= 0 && iy + V[1][i] < Ly && iy + V[1][i] < Ly){ //This condition disable lattice periodicity
+	  f[(ix+V[0][i]+Lx)%Lx][(iy+V[1][i]+Ly)%Ly][i] = fnew[ix][iy][i];}
 }
 }
 void LatticeBoltzmann::Inicie(double rho0,double Jx0,double Jy0){
@@ -72,15 +97,18 @@ void LatticeBoltzmann::Inicie(double rho0,double Jx0,double Jy0){
   for(int ix=0;ix<Lx;ix++)
     for(int iy=0;iy<Ly;iy++)
       for(int i=0;i<Q;i++)
-        f[ix][iy][i]=feq(rho0, Jx0, Jy0, i);
+	f[ix][iy][i] = feq(rho0, Jx0, Jy0, i);
 }
 }
 void LatticeBoltzmann::ImponerCampos(int t){
   int i,ix,iy; double lambda,omega,rho0,Jx0,Jy0;
-  lambda = 10; omega = 2*M_PI / lambda; ix = Lx/2; iy = Ly/2;
-  rho0 = 10 * sin(omega*t); Jx0 = Jx(ix, iy, false); Jy0 = Jy(ix, iy, false);
-  for(i=0;i<Q;i++)
-    fnew[ix][iy][i] = feq(rho0, Jx0, Jy0, i);
+  lambda = 10; omega = 2*M_PI / lambda; ix = 21; iy = Ly/2;
+  rho0 = 100 * sin(omega*t);
+  Jx0 = Jx(ix, iy, false); Jy0 = Jy(ix, iy, false);
+  if(t < 3){
+    for(i=0;i<Q;i++)
+      fnew[ix][iy][i] = feq(rho0, Jx0, Jy0, i);
+  }
 }
 
 void LatticeBoltzmann::Imprimase(const char * NombreArchivo, double t){
