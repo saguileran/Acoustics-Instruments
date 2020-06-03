@@ -21,5 +21,7 @@ As physics, we can study music from waves and oscillations theory, but we can al
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Leader: Andre Mora
 
+The objective is get a better understanding of music study from physics, comparing data measure as generate by theory and simulation. You can find particular details in each folder and all documents created in Documents.md file. 
+
 
 Homepage: http://flute-instrument.ddns.net/redmine/projects/instrumental-characterization
