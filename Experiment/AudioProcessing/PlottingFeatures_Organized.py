@@ -38,7 +38,7 @@ def Peaks(coefficients_weight, frequencies, distance=150, height=-20):
      peaks, _ = find_peaks(coefficients_weight[:samples//2], distance=distance, height=height)
      return frequencies[peaks], coefficients_weight[peaks]
 
-def Smooth(x,window_len=11,window='hanning'):
+def Smooth(x,window_len=11, window='hanning'):
     dim = len(x)
     #possibl windows ['flat', 'hanning', 'hamming', 'bartlett', 'blackman']:
     s = np.r_[x[window_len-1:0:-1],x,x[-2:-window_len-1:-1]]
@@ -67,7 +67,7 @@ if __name__ == "__main__":
     
     for file in wav_files:
     
-    #file = wav_files[0]
+    #file = wav_files[3]
         song = temp_folder + file 
         
         rate, audData = scipy.io.wavfile.read(song) #read wav file
@@ -96,7 +96,8 @@ if __name__ == "__main__":
         #4,2,4
         X_pro, Y_pro = ReduceVectors(x_pure, y_pure)
         Y_pro = Smooth(Y_pro, 30)
-        X_peaks, Y_peaks = Peaks(Y_pro, X_pro, distance=10, height=5)
+        X_peaks, Y_peaks = Peaks(Y_pro, X_pro, distance=5, height=2) ###########
+        #modify distance and hwith to change number of peaks calculated
         
         #4,2,6
         T, P = ReduceVectors(time, pressure/c, 1)
@@ -146,7 +147,7 @@ if __name__ == "__main__":
         fig.add_subplot(4,2,5)
         plt.title('Amplitude Coefficients of FFT')
         plt.plot(frequencies, coefficients_weight)
-        plt.xlabel('Frequencies (Hz)'); plt.ylabel('Weight')
+        plt.xlabel('Frequencies (Hz)')  ; plt.ylabel('Weight')
         plt.xticks(np.arange(0, 2500, step=250))
         plt.xlim(0, 2500)
         
@@ -169,7 +170,7 @@ if __name__ == "__main__":
         plt.colorbar(format='%+2.0f dB')
         
         plt.savefig(temp_folder + '/Data/' + "Plots - " + file[:-4])
-        plt.show()
+        #plt.show()
         plt.close()
         
         Data = pd.DataFrame({'freq': X_peaks*1000, 'dB': Y_peaks.real})
@@ -212,6 +213,5 @@ if __name__ == "__main__":
         plt.xlabel("Frequency number (f_i)"); plt.ylabel("Differences (dB)"); plt.grid()
         
         plt.savefig(temp_folder + '/Data/'  + "Harmonics Analysis - " + file[:-4])
-        plt.show()
+        #plt.show()
         plt.close()
-        
