@@ -23,7 +23,7 @@ void display(void)
   // Ondas.Imprimir(t, Lx/2, Ly/2, "OndasData.dat");
 
   glEnd();
-  std::cout << t << " " << Ondas.rho(Lx/2, Ly/2, false) << std::endl;
+  std::cout << t << " " << Ondas.rho(20 + LFx, Ly/2, false) << std::endl;
   glFlush();
   
   glPointSize(3.0);
@@ -34,7 +34,10 @@ void display(void)
     for(int iy=0; iy<Ly; iy++){
 	rho0 = rho1[ix][iy];
 	glColor3f(0.0, 1.0-rho0*20.0, rho0*20.0);
-	if( (ix == 20 &&  iy >= Ly/2 - LFy/2 && iy <= Ly/2 + LFy/2) || (iy == Ly/2 - LFy/2 &&  ix >= 20 && ix <= 20 + LFx) || (iy == Ly/2 + LFy/2  &&  ix >= 20 && ix <= 20 + LFx)) { glVertex3f(0, 0, 0);}
+	if(((ix == 20 &&  iy >= Ly/2 - LFy/2 && iy <= Ly/2 + LFy/2) || (iy == Ly/2 - LFy/2 &&  ix >= 20 && ix <= 20 + LFx) || (iy == Ly/2 + LFy/2  &&  ix >= 20 && ix <= 20 + LFx))
+	  // &&  not(ix >= 20 + Hole_pos - Aperture_x/2 && ix <= 20 + Hole_pos + Aperture_x/2 && iy == Ly/2 + LFy/2)
+	   )
+	  { glVertex3f(0, 0, 0);}
 	else{
 	  glVertex3f(ix*0.01,iy*0.01,0.01);
 	}

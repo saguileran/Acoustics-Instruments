@@ -10,13 +10,12 @@
   Además de que se comienza a graficar en x=5, para no ver la fuente inicial.
 */
 const int proportion = 2;
-const int Lx = 100*proportion, Ly = 100*proportion;
-const int LFx = 32*(proportion + 1), LFy = 16*(proportion + 1);
+const int Lx = 200*proportion, Ly = 100*proportion;
+const int LFx = 32*(proportion + 0), LFy = 16*(proportion + 0);
 
-const double k1 = 0, k2 = 0, kF = 1.0;
-//const int Lz=17*proportion;
-
-//
+const double k1 = 0, k2 = 0, kF = 0;
+const double Aperture_x = 2*proportion;
+const double Hole_pos = LFx/3;
 
 const int Q = 5;
 const double W0 = 1.0 / 3;

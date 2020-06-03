@@ -51,28 +51,22 @@ void LatticeBoltzmann::Colisione(void){
 	rho0 = rho(ix, iy, false);  Jx0 = Jx(ix, iy, false);  Jy0 = Jy(ix, iy, false);
 	fnew[ix][iy][0] = UmUtau*f[ix][iy][0] + Utau*feq(rho0, Jx0, Jy0, 0);
 	
-	//	if(ix == Lx - 1 || ix == 0){ fnew[ix][iy][1] = k1 * fnew[ix][iy][2]; fnew[ix][iy][2] = k1 * fnew[ix][iy][1]; } 
-	//else{ fnew[ix][iy][1] = UmUtau*f[ix][iy][1] + Utau*feq(rho0, Jx0, Jy0, 1);
-      	//      fnew[ix][iy][2] = UmUtau*f[ix][iy][2] + Utau*feq(rho0, Jx0, Jy0, 2); }
-
-	//if(iy == Ly - 1 || iy == 0){ fnew[ix][iy][3] = k2 * fnew[ix][iy][4]; fnew[ix][iy][4] = k2 * fnew[ix][iy][3];}
-	//else{ fnew[ix][iy][3] = UmUtau*f[ix][iy][3] + Utau*feq(rho0, Jx0, Jy0, 3);
-      	//      fnew[ix][iy][4] = UmUtau*f[ix][iy][4] + Utau*feq(rho0, Jx0, Jy0, 4); }
-	
-
-	if((ix == 20 &&  iy > Ly/2 - LFy/2 && iy < Ly/2 + LFy/2) && not(ix == Lx - 1 || ix == 0) ) {
+	if(ix == 20 &&  iy >= Ly/2 - LFy/2 && iy <= Ly/2 + LFy/2 ) {
 	  fnew[ix][iy][1] = kF * fnew[ix][iy][2]; fnew[ix][iy][2] = kF * fnew[ix][iy][1];
 	}
-	else if(ix == Lx - 1 || ix == 0){ fnew[ix][iy][1] = 0; fnew[ix][iy][2] = 0; } 
+	else if(ix == Lx - 1 || ix == 0){ fnew[ix][iy][1] = 0; fnew[ix][iy][3] = 0; } 
 	else{ fnew[ix][iy][1] = UmUtau*f[ix][iy][1] + Utau*feq(rho0, Jx0, Jy0, 1);
-	  fnew[ix][iy][2] = UmUtau*f[ix][iy][2] + Utau*feq(rho0, Jx0, Jy0, 2); }
+    	      fnew[ix][iy][3] = UmUtau*f[ix][iy][3] + Utau*feq(rho0, Jx0, Jy0, 3); }
 
-	if(((iy == Ly/2 - LFy/2 &&  ix > 20 && ix <= 20 + LFx) || (iy == Ly/2 + LFy/2  &&  ix > 20 && ix <= 20 + LFx)) && not( iy == Ly - 1 || iy  == 0)) {
-	  fnew[ix][iy][4] = k1 * fnew[ix][iy][3]; fnew[ix][iy][3] = k1 * fnew[ix][iy][4];
+	if(((iy == Ly/2 - LFy/2 && ix >= 20 && ix <= 20 + LFx) || (iy == Ly/2 + LFy/2  &&  ix >= 20 && ix <= 20 + LFx))
+	  //&&  not(ix >= 20 + Hole_pos - Aperture_x/2 && ix <= 20 + Hole_pos + Aperture_x/2 && iy == Ly/2 + LFy/2)
+	   )
+	  {
+	  fnew[ix][iy][4] =  kF * fnew[ix][iy][2]; fnew[ix][iy][4] =  kF * fnew[ix][iy][4];
 	}
-	else if(iy == Ly - 1 || iy == 0){ fnew[ix][iy][3] = 0; fnew[ix][iy][4] = 0; } 
-	else{ fnew[ix][iy][3] = UmUtau*f[ix][iy][3] + Utau*feq(rho0, Jx0, Jy0, 3);
-	  fnew[ix][iy][4] = UmUtau*f[ix][iy][4] + Utau*feq(rho0, Jx0, Jy0, 4); }
+	else if(iy == Ly - 1 || iy == 0){ fnew[ix][iy][2] = 0; fnew[ix][iy][4] = 0; } 
+	else{ fnew[ix][iy][2] = UmUtau*f[ix][iy][2] + Utau*feq(rho0, Jx0, Jy0, 2);
+	      fnew[ix][iy][4] = UmUtau*f[ix][iy][4] + Utau*feq(rho0, Jx0, Jy0, 4); }
 
 
 	//for(i=0; i<Q; i++){ fnew[ix][iy][i] = UmUtau*f[ix][iy][i] + Utau*feq(rho0, Jx0, Jy0, i);}
@@ -102,8 +96,8 @@ void LatticeBoltzmann::Inicie(double rho0,double Jx0,double Jy0){
 }
 void LatticeBoltzmann::ImponerCampos(int t){
   int i,ix,iy; double lambda,omega,rho0,Jx0,Jy0;
-  lambda = 10; omega = 2*M_PI / lambda; ix = 21; iy = Ly/2;
-  rho0 = 100 * sin(omega*t);
+  lambda = 10; omega = 2*M_PI / lambda; ix = 21 ; iy = Ly/2;
+  rho0 = 100; //* sin(omega*t);
   Jx0 = Jx(ix, iy, false); Jy0 = Jy(ix, iy, false);
   if(t < 3){
     for(i=0;i<Q;i++)
