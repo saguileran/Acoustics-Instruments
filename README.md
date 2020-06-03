@@ -1,26 +1,29 @@
 <center> <h1>Record characterization and simulation</h1> </center>
 
 
-The objective of this project is to characterize recoder (musical instrument) using wave theory, simulation programms and audio data analysis apps and recording apps. Expected to be expanded to other types of instruments.
+A scientist is a person who never stops to ask neither investigate, they have a huge curiosity for the surrounding world and how it works. Thanks to this quality we could develop a universal language that everyone can ear and feel.... the music, what will be without it? This curiosity characterizes the human being leading him to invent the first instrument that dates back 40000 years old, a bone flute from the city of Geißenklösterle. 
 
+<img src="https://lh3.googleusercontent.com/proxy/6J_1Pqa3KN49E9j-8MA6IUz3DT59MqW3A-bTAOCki-d8cIUKDzvrJLDuKhxRT6QjkGqNO5k3137YTeFRQR0DSZRWrlNMdCfRcAZk" width="1000">
 
-For this purpose, the project is divide in three parts:
+Now, the flute is one of the most common instruments in the world and it is accessible to many people to play it. It has been evolved to get professional instruments.
 
+As physics, we can study music from waves and oscillations theory, but we can also measure acoustic properties and simulate sound waves. The present project has the goal to study and characterize some properties of instrumental acoustics from the three branches of physics:
 
-* **Theoretical**: How to model the phenomena with physics theory. Trying to represent the flute by wave and fluid theories including its border conditiones and other parameters. Relate by equation ways to define record's characterists. 
+* **Theory**: Model flute phenomena using waves and fluids theory studying how to define boundary conditions and holes, moreover study the impedance, sound pressure level (SPL), and other acoustic concepts and how can be defined in physics.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Leader: Felipe Reyes
 
 
-* **Experimental**: Search for the most movenient, simple, and free access apps, to record sound from the recorder and get its data to be analyzed. From this analysis find by theory equations its characteristics.
+* **Experiments**: Investigate how have been studied acoustic instruments and how it can be measure. Make some measure and compare technics (formats and microphones) looking for the best quality data to do some audio analysis through digital processing, SPL plots, Fourier space, and harmonics.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Leader: Lina Duque
 
 
-* **Computational**: To be based in a Lattice Boltzmann for acoustic waves, where the pressure is the main character. The idea is to set up the boundary conditions and how to compare them with experimental data.
-The Lattice Boltzmann code is already done in c++.
+* **Simulations**: Simulate waves propagation of a flute with and without holes using a Lattice Boltzmann Method (LBM). Design algorithm with boundary conditions and measurable data. Compare simulation time of different languages.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Leader: Andre Mora
+
+The objective is get a better understanding of music study from physics, comparing data measure as generate by theory and simulation. You can find particular details in each folder and all documents created in Documents.md file. 
 
 
 Homepage: http://flute-instrument.ddns.net/redmine/projects/instrumental-characterization
