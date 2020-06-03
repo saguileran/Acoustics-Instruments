@@ -11,15 +11,21 @@ As physics, we can study music from waves and oscillations theory, but we can al
 
 * **Theory**: Model flute phenomena using waves and fluids theory studying how to define boundary conditions and holes, moreover study the impedance, sound pressure level (SPL), and other acoustic concepts and how can be defined in physics.
 
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/ImpedanciaC6.PNG)
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Leader: Felipe Reyes
 
 
 * **Experiments**: Investigate how have been studied acoustic instruments and how it can be measure. Make some measure and compare technics (formats and microphones) looking for the best quality data to do some audio analysis through digital processing, SPL plots, Fourier space, and harmonics.
 
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Experiment/Measurements/Flute/Sebastian/Data/Plots%20-%20Flute-D.png)
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Leader: Lina Duque
 
 
 * **Simulations**: Simulate waves propagation of a flute with and without holes using a Lattice Boltzmann Method (LBM). Design algorithm with boundary conditions and measurable data. Compare simulation time of different languages.
+
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Simulation.gif)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Leader: Andre Mora
 
