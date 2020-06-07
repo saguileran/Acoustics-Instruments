@@ -1,8 +1,1 @@
-El programa que se encuentra adjunto será el encargado de extraer y graficar los
-datos obtenidos de las mediciones. Los datos deben usar "." como separador de 
-decimales. Si se usa "," no compila. EL programa esta en python 3.7
-Para graficar solo deben cambiar el nombre del archivo, en el programa se
-comenta donde reemplazar los datos. Al final se debe agregar el formato en que
-estén guardados.
-Finalmente el archivo del cual se extraigan los datos debe estar en la misma 
-carpeta donde se guarde el programa.
+The attached program will be in charge of extracting and graphing the data obtained from the measurements. Data must use "." as a decimal separator. If you use "," it does not compile. The program is in python 3.7 To graph, you only have to change the name of the file, in the program it is commented where to replace the data. At the end, the format in which they are saved must be added. Finally, the file from which the data is extracted must be in the same folder where the program is saved.
