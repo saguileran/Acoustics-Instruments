@@ -1,10 +1,11 @@
-En el presente archivo se encuentran los espectros de frecuencia.
-Los archivos 1,2,3,4 y fondo fueron grabados usando el micr+ofono de una telefono celular marca Huawei Y7-2018. 
-Sus datos para graficar los espectros asociados son los espectro1,2,3,4 y fondo.
-Los archivos 21,22,23,24 y fondo_2 fueron grabados utilizando el micrófono de los audiculares del dispositivo
-mencionado anteriormente.
-Sus datos para graficar los espectros asociados son los espectro21,22,23,24 y fondo-2.
-En ambos casos los dispositivos estaban a aprox 10cm de la parte inferior de la flauta.
-Todo fue analizado con audacity.
+Frequency spectra are found in this file.
+The 1,2,3,4 and background files were recorded using the microphone of a Huawei Y7-2018 cell phone.
 
-En todos los casos se grabaron las notas musicales do, re, mi, fa, sol, la, si.
+Its data to graph the associated spectra are the spectrum 1,2,3,4 and background.
+
+Files 21,22,23,24 and fondo_2 were recorded using the headset microphone of the aforementioned device.
+
+His data to graph the associated spectra are spectrum 21,22,23,24 and background-2. In both cases the devices were approx 10cm from the bottom of the flute.
+Everything was analyzed with audacity.
+
+In all cases the musical notes do, re, mi, fa, sol, la, si were recorded.
