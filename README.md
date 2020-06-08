@@ -3,7 +3,9 @@
 
 A scientist is a person who never stops to ask neither investigate, they have a huge curiosity for the surrounding world and how it works. Thanks to this quality we could develop a universal language that everyone can ear and feel.... the music, what will be without it? This curiosity characterizes the human being leading him to invent the first instrument that dates back 40000 years old, a bone flute from the city of Geißenklösterle. 
 
-<img src="https://qph.fs.quoracdn.net/main-qimg-3a583a8ecded6564faa1f440d2d359dc" width="1000">
+<p align="center">
+  <img width="600" height="500" src="https://qph.fs.quoracdn.net/main-qimg-3a583a8ecded6564faa1f440d2d359dc">
+</p>
 
 Now, the flute is one of the most common instruments in the world and it is accessible to many people to play it. It has been evolved to get professional instruments.
 
