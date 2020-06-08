@@ -13,7 +13,7 @@ As physics, we can study music from waves and oscillations theory, but we can al
 
 * **Theory**: Model flute phenomena using waves and fluids theory studying how to define boundary conditions and holes, moreover study the impedance, sound pressure level (SPL), and other acoustic concepts and how can be defined in physics.
 
-![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/ImpedanciaC6.PNG)
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Impedance/ImpedanciaTeoV1.png) | ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Intensity/Intensidad.png)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Leader: Felipe Reyes
 
