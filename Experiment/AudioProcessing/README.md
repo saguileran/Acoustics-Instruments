@@ -21,7 +21,10 @@ We suggest that run AllPlots script to get all the information and analysis, to 
 * scipy
 * pandas
  
-If you are using linux machine it can be done executing : **sudo apt-get install python-scipy python-matplotlib python-numpy python-librosa python-pandas**; on windows you run **pip install librosa scipy matplotlib numpy librosa pandas** in any anaconda (spyder) terminal. The most easy way is install anaconda and make it from graphical interface.
+If you are using linux machine it can be done executing: **sudo apt-get install python-scipy python-matplotlib python-numpy python-librosa python-pandas**.
+On windows you run **pip install librosa scipy matplotlib numpy librosa pandas** in any anaconda (spyder) terminal. 
+
+The most easy way is install anaconda and make it from graphical interface.
 To run you enter **python  AllPlots.py** in terminal, if you can measure the time spent add time at begining. 
 After enter this code you have to give the folder direction, it has to end in / in other case the script doesn't work.
 
