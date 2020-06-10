@@ -15,7 +15,7 @@ As physicists, we can study music from waves and oscillations theory, but we can
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Impedance/ImpedanciaTeoV1.png)  ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Intensity/Intensidad.png)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Leader: Felipe Reyes
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Leader: Felipe De La Ossa
 
 
 * **Experiments**: Investigate how  acoustic instruments  have been studied and how it can be measured. Make some measurements and compare technics (formats and microphones) looking for the best quality data to do some audio analysis through digital processing, SPL plots, Fourier space, and harmonics.
