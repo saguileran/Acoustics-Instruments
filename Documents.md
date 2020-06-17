@@ -8,7 +8,7 @@ Project Documentation
 > * View: https://www.overleaf.com/read/bgjwrzspkgdm
 
 
-**Proyect Proposal**
+**Project Proposal**
 > * Edit: https://www.overleaf.com/1589984674zqtjhczcgrqm
 
 > * View: https://www.overleaf.com/read/vdbhtzwwmnpy
