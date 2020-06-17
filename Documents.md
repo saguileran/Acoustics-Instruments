@@ -8,6 +8,13 @@ Project Documentation
 > * View: https://www.overleaf.com/read/bgjwrzspkgdm
 
 
+**Article**
+
+> * Edit: https://www.overleaf.com/5199835576hzrxzrsysznf
+
+> * View: https://www.overleaf.com/read/gzkqcgmytxfv
+
+
 **Project Proposal**
 > * Edit: https://www.overleaf.com/1589984674zqtjhczcgrqm
 
