@@ -15,3 +15,5 @@ In all cases the musical notes do, re, mi, fa, sol, la, si were recorded.
 SEGUNDAS MEDICIONES.
 
 Recordings made following the proposed measurement protocol. The microphone from the same phone was used.
+
+Flute: made in colombia-RALIGO
