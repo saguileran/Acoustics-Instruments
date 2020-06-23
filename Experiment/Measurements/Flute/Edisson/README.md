@@ -1,3 +1,5 @@
+PRIMERAS MEDICIONES.
+
 Frequency spectra are found in this file.
 The 1,2,3,4 and background files were recorded using the microphone of a Huawei Y7-2018 cell phone.
 
@@ -9,3 +11,7 @@ His data to graph the associated spectra are spectrum 21,22,23,24 and background
 Everything was analyzed with audacity.
 
 In all cases the musical notes do, re, mi, fa, sol, la, si were recorded.
+
+SEGUNDAS MEDICIONES.
+
+Recordings made following the proposed measurement protocol. The microphone from the same phone was used.
