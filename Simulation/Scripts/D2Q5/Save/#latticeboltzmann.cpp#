@@ -11,7 +11,7 @@ LatticeBoltzmann::LatticeBoltzmann(void){
 
 double LatticeBoltzmann::rho(int ix, int iy, bool UseNew){
   int i; double suma = 0;
-    for(i=0;i<Q;i++){
+  for(i=0;i<Q;i++){
     if(UseNew) suma += fnew[ix][iy][i]; else suma += f[ix][iy][i];
     }
   return suma;

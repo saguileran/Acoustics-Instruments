@@ -1,6 +1,55 @@
-#include "latticeboltzmann.h"
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <cmath>
 #include "omp.h"
 
+
+const int proportion = 1;
+const int Lx = 501*proportion, Ly = 50*proportion;
+const int LFx = 330*(proportion), LFy = 14*(proportion);
+
+const double k1 = 0, k2 = 0, kF = 0;
+const double Aperture_x = 2*proportion;
+const double Hole_pos = LFx/3;
+
+const int Q = 5;
+const double W0 = 1.0 / 3;
+const double k = 1; //Constante de reflexión
+
+const double C = 0.5; // C<0.707 celdas/click
+const double TresC2 = 3 * C * C;
+const double AUX0 = 1 - TresC2 * (1 - W0);
+
+const double tau = 0.5;
+const double Utau = 1.0 / tau;
+const double UmUtau = 1 - Utau;
+
+
+//----------- CLASS ------------------------
+class LatticeBoltzmann
+{
+private:
+  double w[Q];
+  int V[2][Q]; // V[0][i]=V_ix,  V[1][i]=V_iy
+  double f[Lx][Ly][Q], fnew[Lx][Ly][Q]; // f[ix][iy][i]
+public:
+  LatticeBoltzmann(void);
+  double rho(int ix, int iy, bool UseNew);
+  double Jx(int ix, int iy, bool UseNew);
+  double Jy(int ix, int iy, bool UseNew);
+  double Jz(int ix, int iy, bool UseNew);
+  double feq(double rho0, double Jx0, double Jy0, int i);
+  void Colisione(void);
+  void Adveccione(void);
+  void Inicie(double rho0, double Jx0, double Jy0);
+  void ImponerCampos(int t);
+  void Imprimase(const char * NombreArchivo, int t);
+  void Imprimir(int t, int ix, int iy, const char * NombreArchivo);
+};
+
+
+//---------------------FUNCTIONS------------------------------
 LatticeBoltzmann::LatticeBoltzmann(void){
   //Cargar los pesos
   w[0] = W0; w[1] = w[2] = w[3] = w[4] = (1 - W0) / 4.0;;
@@ -50,6 +99,7 @@ void LatticeBoltzmann::Colisione(void){
         //Calcular las cantidades macroscópicas
 	rho0 = rho(ix, iy, false);  Jx0 = Jx(ix, iy, false);  Jy0 = Jy(ix, iy, false);
 	fnew[ix][iy][0] = UmUtau*f[ix][iy][0] + Utau*feq(rho0, Jx0, Jy0, 0);
+	//for(i=0; i<Q; i++){ fnew[ix][iy][i] = UmUtau*f[ix][iy][i] + Utau*feq(rho0, Jx0, Jy0, i);}
 	
 	if(ix == 20 &&  iy >= Ly/2 - LFy/2 && iy <= Ly/2 + LFy/2 ) {
 	  fnew[ix][iy][1] = kF * f[ix][iy][2]; fnew[ix][iy][2] = kF * f[ix][iy][1];
@@ -69,10 +119,10 @@ void LatticeBoltzmann::Colisione(void){
 	else if(iy == Ly - 2 || iy == 1){ fnew[ix][iy][2] = k2 *  f[ix][iy][4]; fnew[ix][iy][4] = k2 *  f[ix][iy][2]; } 
 	else{ fnew[ix][iy][2] = UmUtau*f[ix][iy][2] + Utau*feq(rho0, Jx0, Jy0, 2);
 	      fnew[ix][iy][4] = UmUtau*f[ix][iy][4] + Utau*feq(rho0, Jx0, Jy0, 4); }
-
-	std::cout << ix << " " << iy << " " << rho0 << std::endl; //microphone place
+	
+	//std::cout << ix << " " << iy << " " << rho0 << std::endl; //microphone place
 	//if(ix == Lx-1 and iy == Ly-1){std::cout << " " << std::endl;}
-	//for(i=0; i<Q; i++){ fnew[ix][iy][i] = UmUtau*f[ix][iy][i] + Utau*feq(rho0, Jx0, Jy0, i);}
+	
     }
   }
  }
@@ -99,34 +149,31 @@ void LatticeBoltzmann::Inicie(double rho0,double Jx0,double Jy0){
 }
 void LatticeBoltzmann::ImponerCampos(int t){
   int i,ix,iy; double lambda,omega,rho0,Jx0,Jy0;
-  lambda = 10; omega = 2*M_PI / lambda; ix = 21 ; iy = Ly/2;
+  lambda = 10; omega = 2*M_PI / lambda; ix = Lx/2 ; iy = Ly/2;
   rho0 = 10 * sin(omega*t);
   Jx0 = Jx(ix, iy, false); Jy0 = Jy(ix, iy, false);
-  if(t < 1000){
-    for(iy=(Ly-LFy+2)/2;iy<(Ly+LFy)/2;iy++){
-      for(i=0;i<Q;i++)
-	fnew[ix][iy][i] = feq(rho0, Jx0, Jy0, i);
-    }
-  }
+  //  if(t < 1000){
+  //  for(iy=(Ly-LFy+2)/2;iy<(Ly+LFy)/2;iy++){
+  for(i=0;i<Q;i++)
+      fnew[ix][iy][i] = feq(rho0, Jx0, Jy0, i);
+      //}
+  //}
 }
 
-void LatticeBoltzmann::Imprimase(const char * NombreArchivo, double t){
-  std::ofstream MiArchivo(NombreArchivo);
+void LatticeBoltzmann::Imprimase(const char * NombreArchivo, int t){
+  std::ofstream MiArchivo(NombreArchivo + std::to_string(t));
   double rho0,Jx0,Jy0;
   #pragma omp paralel for
   {
-  MiArchivo<< t<<'\n';
+  MiArchivo << "X,Y,rho\n";
   for(int ix=0;ix<Lx;ix++){
     for(int iy=0;iy<Ly;iy++){
         rho0 = rho(ix, iy, false);  //Jx0=Jx(ix,iy,iz,false); Jy0=Jy(ix,iy,iz,false); Jz0=Jz(ix,iy,iz,false);
-        MiArchivo<< ix << " " << iy << " " <<rho0<<'\n';
-      //MiArchivo<<'\n';
+        MiArchivo << ix << "," << iy << "," << rho0 << '\n';
     }
-    //MiArchivo<<'\n';
   }
-  MiArchivo<<'\n';
   }
-  if (t==999){MiArchivo.close();}
+  MiArchivo.close();
 }
 
 void LatticeBoltzmann::Imprimir(int t, int ix, int iy, const char * NombreArchivo){
@@ -139,3 +186,46 @@ void LatticeBoltzmann::Imprimir(int t, int ix, int iy, const char * NombreArchiv
 
 
 
+
+//--------MAIN---------------------------------
+int main(void){
+  
+  LatticeBoltzmann Ondas;  
+  int t,tmax=1000;
+  
+  //GNUPLOT
+  /*
+  // Estos comandos se descomentan si se quiere guardar el gif
+  std::cout << "set terminal gif animate" << std::endl;
+  std::cout << "set output 'pelicula0.gif'" << std::endl;
+  
+  //Estos comandos se descomentan para hacer el gif
+  std::cout << "set pm3d map; set palette color positive" << std::endl;
+  std::cout << "set palette defined (-1 \"red\", 0 \"white\", 1 \"blue\")" << std::endl;
+  std::cout << "set cbrange[-1:1]" << std::endl;
+  std::cout << "set xrange[-1:501]; set yrange[-1:51]; set zrange[-1:1]" << std::endl;
+  //std::cout << "set view map scale 1 " << std::endl;
+
+  //std::cout << "set view map;  set size ratio .9 " << std::endl;
+  //std::cout << "set object 1 rect from graph 0, graph 0 to graph 1, graph 1 back " << std::endl;
+  //std::cout << "set object 1 rect fc rgb 'black' fillstyle solid 1.0 " << std::endl;
+  //std::cout << " " << std:endl;
+  //std::cout << " " << std:endl;
+  */
+  
+  Ondas.Inicie(0,0,0);
+  for(t=0;t<tmax;t++){
+    std::cout << t << std::endl;
+    Ondas.Colisione();
+    Ondas.ImponerCampos(t);
+    Ondas.Adveccione();
+    //Ondas.Imprimir(t,25,25,25,"datos.dat");     //Este comando se tiene para graficar la amplitud en función del tiempo en el punto x,y,z
+
+    //Estos comandos son los que permiten hacer el gif
+    Ondas.Imprimase("Ondas.csv.", t); 
+    //std::cout << "splot 'Ondas.dat' using 1:2:3  with points palette pointsize 3 pointtype 7 " << std::endl;
+  }
+  //Ondas.Imprimase("Ondas.dat");
+
+  return 0;
+}

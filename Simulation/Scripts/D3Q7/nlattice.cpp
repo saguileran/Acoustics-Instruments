@@ -28,7 +28,7 @@ void display(void)
   //  std::cout << t << " " << Ondas.rho(20 + LFx + 10, Ly/2, false) << std::endl; //microphone place
   glFlush();
   
-  glPointSize(2.0);
+  glPointSize(3.0);
   glBegin(GL_POINTS);
    #pragma omp paralel for
   {
@@ -47,9 +47,9 @@ void display(void)
 	}
 	/* Setup the view of the cube. */
 	glMatrixMode(GL_PROJECTION);
-	gluPerspective( /* field of view in degree */ 180.0,
-			/* aspect ratio */ 1.0,
-	  			/* Z near */ 100.0, /* Z far */ 1000.0);
+	gluPerspective( /* field of view in degree */ 120.0,
+			/* aspect ratio */ 2.0,
+	  			/* Z near */ 1.0, /* Z far */ 10.0);
 	//  glMatrixMode(GL_MODELVIEW);
 	//      gluLookAt(20.0, 50.0, 50.0,  /* eye is at (0,0,5) */
 	// 10.0, 10.0, 10.0,      /* center is at (0,0,0) */
@@ -72,7 +72,7 @@ void init(void)
   GLfloat aspect = (GLfloat)width / (GLfloat)height;
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  glTranslatef(-1.0f, 0.0f, -1.0f);  // Move into the screen
+  glTranslatef(-1.0f, -1.0f, -0.0f);  // Move into the screen
   gluLookAt(0.0, 0.0, 0.0, 0.0, 0.0, -10.0, 0.0, 1.0, 0.0);
 }
 

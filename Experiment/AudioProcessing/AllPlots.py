@@ -174,7 +174,7 @@ if __name__ == "__main__":
         plt.close()
         
         Data = pd.DataFrame({'freq': X_peaks*1000, 'dB': Y_peaks.real})
-        Data.to_csv(temp_folder  + '/Data/' + "Peaks - " + file[:-4])
+        Data.to_csv(temp_folder  + 'Data/' + "Peaks - " + file[:-4])
         
         #----------------_Harmonics analysis----------
         #2,2,2
