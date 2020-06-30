@@ -12,4 +12,10 @@ The solution for this equation (1) it is usually as follows:
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/solonda.png) (3)
 
-Using (1) 
+Using (1) and replacing *p* in (2) we get the velocity:
+
+
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/u.png) (4)
+
+
+
