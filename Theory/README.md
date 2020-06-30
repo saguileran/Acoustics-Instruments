@@ -11,3 +11,5 @@ This lead to a wave equation like (2).
 The solution for this equation (1) it is usually as follows:
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/solonda.png) (3)
+
+Using (1) 
