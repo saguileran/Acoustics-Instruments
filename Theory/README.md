@@ -12,10 +12,33 @@ The solution for this equation (1) it is usually as follows:
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/solonda.png) (3)
 
-Using (1) and replacing *p* in (2) we get the velocity:
-
+Using (1) and replacing _*p*_ in (2) we get the fluid velocity:
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/u.png) (4)
+
+Multiplying (4) by the cross section _*S*_ we get the acoustic flux:
+
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/flujo.png) (5)
+
+However, this is for infinite dimensions. If we want a more realistic model is needed to add a reflected wave from an open or closed edge.
+
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/pr.png) (6)
+
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/ur.png) (7)
+
+With the flux we can define the acoustic impedance in terms of _*ρ*_, _*c*_ y _*S*_ :
+
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/impe.png) (8)
+
+We can figure out a lot of interesting acoustic properties of the flute. Most scientific studies base their analysis on the study of impedance. The problem with doing this kind of analisys in that the impedance measurement without a laboratory is really complex. In case of needed, we did some graphics in the folder avobe called Impedance. At the end we will tell how we did those graphics. In the meantime we will do the analisys in terms of the intensity defined by:
+
+
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/I.png) (9)
+
+Being _*Z'=ZS*_. Knowing that _*Z=P/U_* we have:
+
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/Iz.png) (10)
+
 
 
 
