@@ -2,7 +2,7 @@
 
 The idea of this folder is to show you how we analyse the acoustic physics of a flute. First of all, we will start by taking a few things for granted. The first one ins known as Pressure-gradient force. The second is the fact that a velocity gradient produces a compression in the fluid. Of course, this things as we shown in (1)  has to be demostrated. We will explain this with more detail in the extensive work. So as not to complicate things, we start in (1)
 
-![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/gradiente.png) (1)
+<img src="https://render.githubusercontent.com/render/math?math= \frac{\partial p}{\partial x} = -\rho \frac{\partial u}{\partial t} \;\;\;\;\; ; \;\;\;\;\; \kappa \frac{\partial p}{\partial t} = -\frac{\partial u}{\partial x}"> (1)
 
 This lead to a wave equation like (2).
 
@@ -39,6 +39,4 @@ Being _*Z'=ZS*_. Knowing that _*Z=P/U_* we have:
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/Iz.png) (10)
 
-
-
-
+<img src="https://render.githubusercontent.com/render/math?math= e^{i \pi} = -1">
