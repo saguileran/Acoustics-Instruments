@@ -212,15 +212,15 @@ void LatticeBoltzmann::Microphone(int t, int ix, int iy, const char * NombreArch
 int main(void){
   
   LatticeBoltzmann Ondas;  
-  int t,tmax=1000;
+  int t,tmax=200;
   
   //GNUPLOT
   /*
-  // Estos comandos se descomentan si se quiere guardar el gif
+  // Commands to maka animation with Gnuplot
   std::cout << "set terminal gif animate" << std::endl;
   std::cout << "set output 'pelicula0.gif'" << std::endl;
   
-  //Estos comandos se descomentan para hacer el gif
+  //This commands set up plot type and variables range
   std::cout << "set pm3d map; set palette color positive" << std::endl;
   std::cout << "set palette defined (-1 \"red\", 0 \"white\", 1 \"blue\")" << std::endl;
   std::cout << "set cbrange[-1:1]" << std::endl;
@@ -244,12 +244,10 @@ int main(void){
     Ondas.Stream();
 
     //Export microphoes data, time vs pressure
-    Ondas.Print(t, 20+LFx,    Ly/2, "LongPulse10k-0mm.dat");
-    Ondas.Print(t, 20+LFx+10, Ly/2, "LongPulse10k-10mm.dat");
-    Ondas.Print(t, 20+LFx+60, Ly/2, "LongPulse10k-60mm.dat");
-
+    Ondas.Print(t, 20+LFx,    Ly/2, "Micrhopone-0mm.dat");
+    
     //Commands to make data animation
-    if(t%5 == 0){Ondas.PrintGrid("LongPulse10k.csv.", t);}
+    if(t%5 == 0){Ondas.PrintGrid("SimpleFlute.csv.", t);}
 
     //Uncomment to use GNUPLOT animation
     //std::cout << "splot 'Ondas.dat' using 1:2:3  with points palette pointsize 3 pointtype 7 " << std::endl;

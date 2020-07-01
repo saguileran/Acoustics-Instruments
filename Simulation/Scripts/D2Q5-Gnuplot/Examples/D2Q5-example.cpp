@@ -4,18 +4,16 @@
 #include <cmath>
 #include "omp.h"
 
-
 const int proportion = 1;
 const int Lx = 501*proportion, Ly = 50*proportion;
 const int LFx = 330*(proportion), LFy = 14*(proportion);
 
-const double ke = 0, k2 = 0, kF = 1; //k_enviorment = 0 meansabsortion wall
+const double ke = 0, kF = 1; //k_e =  k enviorment = 0 (absortion wall)
 //const double Aperture_x = 2*proportion;
 //const double Hole_pos = LFx/3;
 
 const int Q = 5;
 const double W0 = 1.0 / 3;
-const double k = 1; //Constante de reflexión
 
 const double C = 0.5; // C<0.707 celdas/click
 const double TresC2 = 3 * C * C;
@@ -40,17 +38,17 @@ public:
   double  Jy(int ix, int iy, bool UseNew);
   double  Jz(int ix, int iy, bool UseNew);
   double feq(double rho0, double Jx0, double Jy0, int i);
-  void Colisione(void);
-  void Adveccione(void);
-  void Inicie(double rho0, double Jx0, double Jy0);
-  void ImponerCampos(int t);
-  void Imprimase(const char * NombreArchivo, int t);
-  void Imprimir(int t, int ix, int iy, const char * NombreArchivo);
+  void Colide(void);
+  void Stream(void);
+  void Initialize(double rho0, double Jx0, double Jy0);
+  void ImposeField(int t);
+  void PrintGrid(const char * NombreArchivo, int t);
+  void Print(int t, int ix, int iy, const char * NombreArchivo);
   void Microphone(int t, int ix, int iy, const char * NombreArchivo);
 };
 
 
-//---------------------FUNCTIONS------------------------------
+//---------------------VELOCITY ADN WEIGHTS VECTORS------------------------------
 LatticeBoltzmann::LatticeBoltzmann(void){
   //Cargar los pesos
   w[0] = W0;   w[1] = w[2] = w[3] = w[4] = (1 - W0) / 4.0;
@@ -59,6 +57,8 @@ LatticeBoltzmann::LatticeBoltzmann(void){
   V[1][0] = 0; V[1][1] = 0;  V[1][2] = 1;  V[1][3] =  0;  V[1][4]= -1;
 }
 
+
+//--------------MACROSCOPIC QUANTITIES---------------------
 double LatticeBoltzmann::rho(int ix, int iy, bool UseNew){
   int i; double suma = 0;
     for(i=0;i<Q;i++){if(UseNew) suma += fnew[ix][iy][i]; else suma += f[ix][iy][i]; }
@@ -83,7 +83,8 @@ double LatticeBoltzmann::feq(double rho0, double Jx0, double Jy0, int i){
   else{     return w[i] * (TresC2 * rho0 + 3* (V[0][i] *Jx0 + V[1][i] * Jy0));}
 }
 
-void LatticeBoltzmann::Colisione(void){
+//--------------COLIISIONE FUNCTION-------------------
+void LatticeBoltzmann::Colide(void){
   int ix, iy, iz, i; double rho0, Jx0, Jy0;  //for all cell
 
 #pragma omp paralel for
@@ -120,8 +121,9 @@ void LatticeBoltzmann::Colisione(void){
   }
  }
 }
-  
-void LatticeBoltzmann::Adveccione(void){
+
+//---------------ADVECTION FUNCTION------------------
+void LatticeBoltzmann::Stream(void){
   #pragma omp paralel for
   {
   for(int ix=0;ix<Lx;ix++)
@@ -132,7 +134,9 @@ void LatticeBoltzmann::Adveccione(void){
 	  f[(ix+V[0][i]+Lx)%Lx][(iy+V[1][i]+Ly)%Ly][i] = fnew[ix][iy][i];}
   }
 }
-void LatticeBoltzmann::Inicie(double rho0,double Jx0,double Jy0){
+
+//-------------------INITIALIZE FUNCTIONS------------------
+void LatticeBoltzmann::Initialize(double rho0,double Jx0,double Jy0){
   #pragma omp paralel for
   {
   for(int ix=0;ix<Lx;ix++)
@@ -141,26 +145,27 @@ void LatticeBoltzmann::Inicie(double rho0,double Jx0,double Jy0){
 	f[ix][iy][i] = feq(rho0, Jx0, Jy0, i);
 }
 }
-void LatticeBoltzmann::ImponerCampos(int t){
+void LatticeBoltzmann::ImposeField(int t){
   int i, ix, iy; double lambda, omega, rho0, Jx0, Jy0;
   
   //sin(omega * t), declare initial function variables
   lambda = 10; omega = 2 * M_PI / lambda; ix = 22 ; iy = (Ly) / 2;
 
-  //Initialice macroscopic cuantities
-  rho0 = 10; //* sin(omega*t);
+  //Initialize macroscopic cuantities
+  rho0 = 10 * sin(omega*t); //Source function
   Jx0 = Jx(ix, iy, false);  Jy0 = Jy(ix, iy, false);
 
   //make a pulse of 500 steps
-  //if(t < 2000){
+  //  if(t < 2000){
     //for(iy=(Ly-LFy+2)/2;iy<(Ly+LFy)/2;iy++){
   for(i=0;i<Q;i++)
-      fnew[ix][iy][i] = feq(rho0, Jx0, Jy0, i);
+    fnew[ix][iy][i] = feq(rho0, Jx0, Jy0, i);
     //    }
     //}
 }
 
-void LatticeBoltzmann::Imprimase(const char * NombreArchivo, int t){
+//----------------DATA EXPORTATION FUNCTIONS----------------
+void LatticeBoltzmann::PrintGrid(const char * NombreArchivo, int t){
   std::ofstream MiArchivo(NombreArchivo + std::to_string(t));
   double rho0, Jx0, Jy0;
   #pragma omp paralel for
@@ -177,7 +182,7 @@ void LatticeBoltzmann::Imprimase(const char * NombreArchivo, int t){
   MiArchivo.close();
 }
 
-void LatticeBoltzmann::Imprimir(int t, int ix, int iy, const char * NombreArchivo){
+void LatticeBoltzmann::Print(int t, int ix, int iy, const char * NombreArchivo){
   double rho0 = rho(ix, iy, false);
   std::ofstream ofs;
   ofs.open(NombreArchivo, std::ofstream::out | std::ofstream::app);
@@ -195,7 +200,7 @@ void LatticeBoltzmann::Microphone(int t, int ix, int iy, const char * NombreArch
 
     suma += rho0 + rho1 + rho2;
     }
-  
+  suma = suma / 9;
   std::ofstream ofs;
   ofs.open(NombreArchivo, std::ofstream::out | std::ofstream::app);
   ofs << t << '\t' << suma / 9 << '\n';
@@ -203,21 +208,19 @@ void LatticeBoltzmann::Microphone(int t, int ix, int iy, const char * NombreArch
 }
 
 
-
-
-//--------MAIN---------------------------------
+//-------------------------MAIN PROGRAM---------------------------------
 int main(void){
   
   LatticeBoltzmann Ondas;  
-  int t,tmax=10000;
+  int t,tmax=200;
   
   //GNUPLOT
   /*
-  // Estos comandos se descomentan si se quiere guardar el gif
+  // Commands to maka animation with Gnuplot
   std::cout << "set terminal gif animate" << std::endl;
   std::cout << "set output 'pelicula0.gif'" << std::endl;
   
-  //Estos comandos se descomentan para hacer el gif
+  //This commands set up plot type and variables range
   std::cout << "set pm3d map; set palette color positive" << std::endl;
   std::cout << "set palette defined (-1 \"red\", 0 \"white\", 1 \"blue\")" << std::endl;
   std::cout << "set cbrange[-1:1]" << std::endl;
@@ -229,25 +232,22 @@ int main(void){
   //std::cout << "set object 1 rect fc rgb 'black' fillstyle solid 1.0 " << std::endl;
   */
   
-  Ondas.Inicie(0,0,0);
+  Ondas.Initialize(0,0,0);
   for(t=0;t<tmax;t++){
 
     //print actual step
     std::cout << t << std::endl;
 
     //Making lattice steps
-    Ondas.Colisione();
-    Ondas.ImponerCampos(t);
-    Ondas.Adveccione();
+    Ondas.Colide();
+    Ondas.ImposeField(t);
+    Ondas.Stream();
 
     //Export microphoes data, time vs pressure
-    Ondas.Imprimir(t, 20+LFx,    Ly/2, "LongPulse10k-0mm.dat");
-    Ondas.Imprimir(t, 20+LFx+10, Ly/2, "LongPulse10k-10mm.dat");
-    Ondas.Imprimir(t, 20+LFx+60, Ly/2, "LongPulse10k-60mm.dat");
-
+    Ondas.Print(t, 20+LFx,    Ly/2, "Micrhopone-0mm.dat");
 
     //Commands to make data animation
-    if(t%5 == 0){Ondas.Imprimase("LongPulse10k.csv.", t);}
+    if(t%5 == 0){Ondas.PrintGrid("SimpleFlute.csv.", t);}
 
     //Uncomment to use GNUPLOT animation
     //std::cout << "splot 'Ondas.dat' using 1:2:3  with points palette pointsize 3 pointtype 7 " << std::endl;
