@@ -41,12 +41,12 @@ Being _*Z'=ZS*_. Knowing that _*Z=P/U_* we have:
 
 ### Calculating U²
 
-The most cumbersome part of the theoretical study has been the calculation of U². We star squaring the equation (7) considering a complete such as:
+The most cumbersome part of the theoretical study has been the calculation of U². We start by squaring equation (7), considering a complete reflection so that:
 
 
-![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/ba.png) (11)
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/RazonAB.PNG) (11)
 
-So
+Meaning that
 
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/u2.png) (12)
@@ -60,12 +60,12 @@ Multiplying:
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/ll.png) (14)
 
-And using some trigonometric identities:
+And using Euler's formula for cosine:
 
 
-![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/u22.png) (15)
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/FlujoCuadrado.PNG) (15)
 
-Because we consider a complete reflection, is possible to do the math at x=0 and is the same that doing at any point between 0<xL:
+Because we consider a complete reflection, other authors have found that it is possible to do the math at x=0 and is the same that doing at any point between 0<xL [1, 2]:
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/f.png) (16)
 
