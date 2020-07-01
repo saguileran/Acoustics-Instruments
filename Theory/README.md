@@ -30,14 +30,14 @@ With the flux we can define the acoustic impedance in terms of _*ρ*_, _*c*_ y _
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/impe.png) (8)
 
-We can figure out a lot of interesting acoustic properties of the flute. Most scientific studies base their analysis on the study of impedance. The problem with doing this kind of analisys is that the impedance measurement without a laboratory and specialized equipment is really complex. In needed, we uploaded some graphs in the folder above called Impedance. At the end, we will explain how those graphs were made. In the meantime, we will do the analisys in terms of the intensity defined by:
+We can figure out a lot of interesting acoustic properties of the flute. Most scientific studies base their analysis on the study of impedance. The problem with doing this kind of analisys is that the impedance measurement without a laboratory and specialized equipment is really complex. In needed, we uploaded some plots in the folder above called Impedance. At the end, we will explain how those plots were made. In the meantime, we will do the analisys in terms of the intensity defined by:
 
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/I.png) (9)
 
 Being _*Z'=ZS*_. Knowing that _*Z=P/U_* we have:
 
-![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/Iz.png) (10)
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/ImpAbs.PNG) (10)
 
 ### Calculating U²
 
@@ -76,13 +76,13 @@ Here we use the fact that k=2πf/c
 Now can replace (16) in (10) giving us:
 
 
-![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/i.png) (17)
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/ImpZ.PNG) (17)
 
-If you go to the documentation folder you'll see a book called ***The Physics of Musical Instruments*** by ***Neville H. Fletcher*** and ***Thomas D. Rossing***. We only need the equation (8.35) in the page 202:
+The calculations leading to the following impedance equation are quite extensive and will not be developed here. Instead, we redirect you to [1]
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/zt.png) (18)
 
-Where *α* and *v* are adjustable parameters that depend on temperature. Because this is a complex number we need to do:
+Where *α* and *v* are adjustable parameters that depend on temperature and the flute's geometry. Given that this is a complex number we need to do:
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/lzl.png) (19)
 
@@ -96,9 +96,9 @@ But most of the equipments measure in SIL, so we need to convert (20) from W/m²
  
  Here Io is a reference sound intensity wich value is 1W/m² and I is the whole equation (20).
 
-## Graphics
+## Plots
 
-First of all, we draw the impedance from equation  (19) in a frequency range between 1 and 5000 with the code below. The values of *α* and *v* were taken also from the book  ***The Physics of Musical Instruments***:
+First of all, we plot the impedance from equation  (19) in a frequency range between 1 and 5000 with the code below. The values of *α* and *v* were also taken from [1]:
 
  ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/av.png) (22)
 
@@ -145,9 +145,9 @@ double zc(double g, double h){
  return std::sqrt(1.0+((std::tanh(g))*(std::tanh(g)))*((std::tan(h))*(std::tan(h))));
 }
 ````
-This return some data that we can graph:
+This returns some data that we can plot:
 
-![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Impedance/ImpedanciaParamV1.PNG) [1]
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Impedance/ImpedanciaParamV1.PNG) (1)
 
 Using the impedance that returns from the code above we made another code to calculate the sound intensity also in a frequency range between 1 and 5000:
 
@@ -203,11 +203,11 @@ double U(double j){
 }
 ````
 
-![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Intensity/IntensidadC.png) [2]
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Intensity/IntensidadC.png) (2)
 
-Wich returns the figure [2]. The value of A was obtained experimentally giving a result of A=-20. Because we need to predict not only one note, we need to model the holes. Due to boundary conditions required very complex mathematics, only the effective length of the had was changed. 
+Wich gives figure (2). The value of A was obtained experimentally giving a result of A=-20. Because we need to predict more than one note, we would have to model the finger holes. Due to boundary conditions that required very complex calculations, only the effective length of the flute was changed, making this a more effective aproach rather than one based on first principles.
 
-Another thing that was taken into account were hidden harmonics. Because the sound of a flute is not exactly a clean sound, we add the harmonics of D to C (With L=15 and 16 cm)
+Another thing that was taken into account were hidden harmonics. Because the sound produced by a flute with a certain fingerhole configuration is not a completely pure, we add the harmonics of D to C (With L=15 and 16 cm, respectively)
 
 ````
 #define _USE_MATH_DEFINES
@@ -270,7 +270,7 @@ double U(double j){
 }
 
 ````
-This returns [3]
+This returns (3)
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Intensity/IntensidadL15yL16.png) [3]
 
