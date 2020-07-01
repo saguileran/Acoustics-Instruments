@@ -8,7 +8,7 @@ This lead to a wave equation like (2).
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/onda.png) (2)
 
-The solution for this equation (1) it is usually as follows:
+The solution for this equation (1) is usually as follows:
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/solonda.png) (3)
 
@@ -20,7 +20,7 @@ Multiplying (4) by the cross section _*S*_ we get the acoustic flux:
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/flujo.png) (5)
 
-However, this is for infinite dimensions. If we want a more realistic model is needed to add a reflected wave from an open or closed edge.
+However, this is for infinite dimensions. If we want a more realistic model, it is necessary to add a reflected wave from an open or closed edge.
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/pr.png) (6)
 
@@ -30,7 +30,7 @@ With the flux we can define the acoustic impedance in terms of _*ρ*_, _*c*_ y _
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/impe.png) (8)
 
-We can figure out a lot of interesting acoustic properties of the flute. Most scientific studies base their analysis on the study of impedance. The problem with doing this kind of analisys in that the impedance measurement without a laboratory is really complex. In case of needed, we did some graphics in the folder avobe called Impedance. At the end we will tell how we did those graphics. In the meantime we will do the analisys in terms of the intensity defined by:
+We can figure out a lot of interesting acoustic properties of the flute. Most scientific studies base their analysis on the study of impedance. The problem with doing this kind of analisys is that the impedance measurement without a laboratory and specialized equipment is really complex. In needed, we uploaded some graphs in the folder above called Impedance. At the end, we will explain how those graphs were made. In the meantime, we will do the analisys in terms of the intensity defined by:
 
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/I.png) (9)
