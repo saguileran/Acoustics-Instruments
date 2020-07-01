@@ -203,7 +203,7 @@ double U(double j){
 }
 ````
 
-![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Intensity/Intensidad.png) [2]
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Intensity/IntensidadC.png) [2]
 
 Wich returns the figure [2]. The value of A was obtained experimentally giving a result of A=-20. Because we need to predict not only one note, we need to model the holes. Due to boundary conditions required very complex mathematics, only the effective length of the had was changed. 
 
@@ -272,7 +272,7 @@ double U(double j){
 ````
 This returns [3]
 
-![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Intensity/IntensidadC.png) [3]
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Intensity/IntensidadL15yL16.png) [3]
 
 
 
