@@ -152,12 +152,12 @@ void LatticeBoltzmann::ImponerCampos(int t){
   Jx0 = Jx(ix, iy, false);  Jy0 = Jy(ix, iy, false);
 
   //make a pulse of 500 steps
-  if(t < 2000){
+  //if(t < 2000){
     //for(iy=(Ly-LFy+2)/2;iy<(Ly+LFy)/2;iy++){
-    for(i=0;i<Q;i++)
+  for(i=0;i<Q;i++)
       fnew[ix][iy][i] = feq(rho0, Jx0, Jy0, i);
     //    }
-  }
+    //}
 }
 
 void LatticeBoltzmann::Imprimase(const char * NombreArchivo, int t){

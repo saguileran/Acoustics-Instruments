@@ -57,7 +57,7 @@ if __name__ == "__main__":
     
     #temp_folder = '/home/sebas/Documents/Acoustics-Instruments/Experiment/Measurements/Audacity/Flute/Test/' #'C.wav'
     #temp_folder = '/home/sebas/Documents/Recorders/Test/Data/'
-    temp_folder = input('Enter direction to folder files: ')
+    temp_folder = input('Enter direction of folder files: ')
     #temp_folder = temp_folder + '/Data/'
     
     onlyfiles = [file for file in listdir(temp_folder ) if isfile(join(temp_folder , file))]
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     
     wav_files = [wave for wave in onlyfiles if "wav" in wave]
     
-    for file in wav_files:
+    for file in [wav_files[0]]:
     
     #file = wav_files[3]
         song = temp_folder + file 
@@ -105,12 +105,13 @@ if __name__ == "__main__":
         
         fig = plt.figure(figsize=(40, 24))
         fig.suptitle(file[:-4]) # or plt.suptitle('Main title')
+        matplotlib.rcParams.update({'font.size': 18})
         plt.subplots_adjust(hspace = 0.4, wspace = 0.2)
         
         fig.add_subplot(4,2,1)
         plt.title('Waveform')
         plt.plot(time, audData, linewidth=0.1, color='red')
-        plt.xticks(np.arange(0, time[-1], step=0.25))
+        plt.xticks(np.arange(0, time[-1]))#, step=0.25))
         plt.xlabel('Time (s)'); plt.ylabel('Amplitude')
         
         fig.add_subplot(4,2,2)
@@ -169,7 +170,7 @@ if __name__ == "__main__":
         #plt.yticks(np.arange(0, 10000, step=1000))
         plt.colorbar(format='%+2.0f dB')
         
-        plt.savefig(temp_folder + '/Data/' + "Plots - " + file[:-4])
+        plt.savefig(temp_folder + 'Data/' + "Plots - " + file[:-4])
         #plt.show()
         plt.close()
         
@@ -213,5 +214,5 @@ if __name__ == "__main__":
         plt.xlabel("Frequency number (f_i)"); plt.ylabel("Differences (dB)"); plt.grid()
         
         plt.savefig(temp_folder + '/Data/'  + "Harmonics Analysis - " + file[:-4])
-        #plt.show()
+        plt.show()
         plt.close()
