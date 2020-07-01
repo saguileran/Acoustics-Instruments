@@ -98,7 +98,7 @@ void LatticeBoltzmann::Colide(void){
 	//for(i=0; i<Q; i++){ fnew[ix][iy][i] = UmUtau*f[ix][iy][i] + Utau*feq(rho0, Jx0, Jy0, i);}
 
 	//Left flute wall
-	if(ix == 20 &&  iy >= Ly/2 - LFy/2 && iy <= Ly/2 + LFy/2 ) {fnew[ix][iy][1] = kF * f[ix][iy][2]; fnew[ix][iy][2] = kF * f[ix][iy][1];}
+	if(ix == 20 &&  iy >= Ly/2 - LFy/2 && iy <= Ly/2 + LFy/2 ) {fnew[ix][iy][1] = kF * f[ix][iy][3]; fnew[ix][iy][3] = kF * f[ix][iy][1];}
 	else if(ix == Lx - 1 || ix == 1){ fnew[ix][iy][1] = ke * fnew[ix][iy][3]; fnew[ix][iy][3] = ke * fnew[ix][iy][1]; } 
 	else{ fnew[ix][iy][1] = UmUtau*f[ix][iy][1] + Utau*feq(rho0, Jx0, Jy0, 1);
     	      fnew[ix][iy][3] = UmUtau*f[ix][iy][3] + Utau*feq(rho0, Jx0, Jy0, 3); }
@@ -164,6 +164,7 @@ void LatticeBoltzmann::ImposeField(int t){
     //}
 }
 
+/*
 //----------------DATA EXPORTATION FUNCTIONS----------------
 void LatticeBoltzmann::PrintGrid(const char * NombreArchivo, int t){
   std::ofstream MiArchivo(NombreArchivo + std::to_string(t));
@@ -181,6 +182,7 @@ void LatticeBoltzmann::PrintGrid(const char * NombreArchivo, int t){
   }
   MiArchivo.close();
 }
+*/
 
 void LatticeBoltzmann::Print(int t, int ix, int iy, const char * NombreArchivo){
   double rho0 = rho(ix, iy, false);
@@ -244,7 +246,7 @@ int main(void){
     Ondas.Stream();
 
     //Export microphoes data, time vs pressure
-    Ondas.Print(t, 20+LFx,    Ly/2, "Micrhopone-0mm.dat");
+    //Ondas.Print(t, 20+LFx,    Ly/2, "Micrhopone-0mm.dat");
 
     //Commands to make data animation
     if(t%5 == 0){Ondas.PrintGrid("SimpleFlute.csv.", t);}
