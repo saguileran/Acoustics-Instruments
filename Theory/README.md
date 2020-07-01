@@ -58,10 +58,38 @@ Doing some calculation and labeling the complex conjugate by (*)
 
 Multiplying:
 
-![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/l.png) (14)
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/ll.png) (14)
 
 And using some trigonometric identities:
 
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/u22.png) (15)
+
+Because we consider a complete reflection, is possible to do the math at x=0 and is the same that doing at any point between 0<xL:
+
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/f.png) (16)
+
+Here we use the fact that k=2πf/c
+
+### Sound intensity
+
+Now can replace (16) in (10) giving us:
+
+
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/i.png) (17)
+
+If you go to the documentation folder you'll see a book called ***The Physics of Musical Instruments*** by ***Neville H. Fletcher*** and ***Thomas D. Rossing***. We only need the equation (8.35) in the page 202:
+
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/zt.png) (18)
+
+Where *α* and *v* are adjustable parameters that depend on temperature. Because this is a complex number we need to do:
+
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/lzl.png) (19)
+
+ And finally we have:
+ 
+ ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/ifinal.png) (20)
+
+
+
 
