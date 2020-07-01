@@ -90,6 +90,10 @@ Where *α* and *v* are adjustable parameters that depend on temperature. Because
  
  ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/ifinal.png) (20)
 
+But most of the equipments measure in SIL, so we need to convert (20) from W/m² to dB units:
 
+ ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/db.png) (21)
+ 
+ Here Io is a reference sound intensity wich value is 1W/m² and I is the whole equation (20).
 
 
