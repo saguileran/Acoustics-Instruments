@@ -269,7 +269,7 @@ double U(double j){
 ````
 This returns [3]
 
-![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Intensity/IntensidadC.png)
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Intensity/IntensidadC.png) [3]
 
 
 
