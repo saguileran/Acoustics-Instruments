@@ -272,7 +272,10 @@ double U(double j){
 ````
 This returns (3)
 
-![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Intensity/IntensidadL15yL16.png) [3]
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Intensity/IntensidadL15yL16.png) (3)
+
+[1]N. H. Fletcher,The Physics of Musical Instruments, 2.aed. Springer, 2008.
+[2]L. E. Kinsler,Fundamentals Of Acoustics, 1.aed. Wiley ed, 1950.
 
 
 
