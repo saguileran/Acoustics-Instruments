@@ -20,7 +20,15 @@ As physicists, we can study music from waves and oscillations theory, but we can
 
 * **Experiments**: Investigate how  acoustic instruments  have been studied and how it can be measured. Make some measurements and compare technics (formats and microphones) looking for the best quality data to do some audio analysis through digital processing, SPL plots, Fourier space, and harmonics.
 
-![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Experiment/Measurements/Flute/Sebastian/Data/Plots%20-%20Flute-D.png)
+<p align="center">
+  <img  src="https://github.com/saguileran/Acoustics-Instruments/blob/master/Experiment/Measurements/Flute/Sebastian/Data/Plots%20-%20Flute-D.spectrogram.png">
+</p>
+
+
+<p align="center">
+  <img  widht=700 src="https://github.com/saguileran/Acoustics-Instruments/blob/master/Experiment/Measurements/Flute/Sebastian/Data/Plots%20-%20Flute-D.1.png">
+</p>
+
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Experiment/Measurements/Flute/Sebastian/Data/Harmonics%Analysis%-%Flute-D.png)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Leader: Lina Duque
