@@ -51,7 +51,7 @@ Meaning that
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/u2.png) (12)
 
-Doing some calculation and labeling the complex conjugate by (*)
+Doing some calculations and labeling the complex conjugate by (*)
 
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/cc.png) (13)
@@ -65,7 +65,7 @@ And using Euler's formula for cosine:
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/FlujoCuadrado.PNG) (15)
 
-Because we consider a complete reflection, other authors have found that it is possible to do the math at x=0 and is the same that doing at any point between 0<xL [1, 2]:
+Because we are considering a complete reflection, other authors have found that it is possible to do the math at x=0 and it should be the same as doing it at any point between 0<xL [1, 2]:
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/f.png) (16)
 
@@ -73,7 +73,7 @@ Here we use the fact that k=2πf/c
 
 ### Sound intensity
 
-Now can replace (16) in (10) giving us:
+Now substituing (16) in (10) gives us:
 
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/ImpZ.PNG) (17)
