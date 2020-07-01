@@ -2,7 +2,7 @@
 
 The idea of this folder is to show you how we analyse the acoustic physics of a flute. First of all, we will start by taking a few things for granted. The first one ins known as Pressure-gradient force. The second is the fact that a velocity gradient produces a compression in the fluid. Of course, this things as we shown in (1)  has to be demostrated. We will explain this with more detail in the extensive work. So as not to complicate things, we start in (1)
 
-<img src="https://render.githubusercontent.com/render/math?math= \frac{\partial p}{\partial x} = -\rho \frac{\partial u}{\partial t} \;\;\;\;\; ; \;\;\;\;\; \kappa \frac{\partial p}{\partial t} = -\frac{\partial u}{\partial x}"> (1)
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/gradiente.png) (1)
 
 This lead to a wave equation like (2).
 
@@ -39,4 +39,29 @@ Being _*Z'=ZS*_. Knowing that _*Z=P/U_* we have:
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/Iz.png) (10)
 
-<img src="https://render.githubusercontent.com/render/math?math= e^{i \pi} = -1">
+### Calculating U²
+
+The most cumbersome part of the theoretical study has been the calculation of U². We star squaring the equation (7) considering a complete such as:
+
+
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/ba.png) (11)
+
+So
+
+
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/u2.png) (12)
+
+Doing some calculation and labeling the complex conjugate by (*)
+
+
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/cc.png) (13)
+
+Multiplying:
+
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/l.png) (14)
+
+And using some trigonometric identities:
+
+
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/u22.png) (15)
+
