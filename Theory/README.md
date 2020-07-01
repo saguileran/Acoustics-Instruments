@@ -73,7 +73,7 @@ Here we use the fact that k=2πf/c
 
 ### Sound intensity
 
-Now substituing (16) in (10) gives us:
+Substituing (16) in (10) gives us:
 
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/ImpZ.PNG) (17)
@@ -90,7 +90,7 @@ Where *α* and *v* are adjustable parameters that depend on temperature and the 
  
  ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/ifinal.png) (20)
 
-But most of the equipments measure in SIL, so we need to convert (20) from W/m² to dB units:
+But most equipments measure in SIL, so we need to convert (20) from W/m² to dB units:
 
  ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/db.png) (21)
  
@@ -98,7 +98,7 @@ But most of the equipments measure in SIL, so we need to convert (20) from W/m²
 
 ## Plots
 
-First of all, we plot the impedance from equation  (19) in a frequency range between 1 and 5000 with the code below. The values of *α* and *v* were also taken from [1]:
+First, we plot the impedance from equation  (19) in a frequency range between 1 and 5000 with the code below. The values of *α* and *v* were also taken from [1]:
 
  ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/av.png) (22)
 
@@ -149,7 +149,7 @@ This returns some data that we can plot:
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Impedance/ImpedanciaParamV1.PNG) (1)
 
-Using the impedance that returns from the code above we made another code to calculate the sound intensity also in a frequency range between 1 and 5000:
+Using the impedance obtained from the code above we made another script that computes the sound intensity in a frequency range between 1 and 5000:
 
 ````
 #define _USE_MATH_DEFINES
@@ -205,7 +205,7 @@ double U(double j){
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Intensity/IntensidadC.png) (2)
 
-Wich gives figure (2). The value of A was obtained experimentally giving a result of A=-20. Because we need to predict more than one note, we would have to model the finger holes. Due to boundary conditions that required very complex calculations, only the effective length of the flute was changed, making this a more effective aproach rather than one based on first principles.
+Wich gives figure (2). The value of A was obtained by adjusting our data to the ones found by the experiments. Because we want to predict more than one note, we would have to model the finger holes. Due to boundary conditions that required very complex calculations, only the effective length of the flute was changed, making this a more effective aproach rather than one based on first principles.
 
 Another thing that was taken into account were hidden harmonics. Because the sound produced by a flute with a certain fingerhole configuration is not a completely pure, we add the harmonics of D to C (With L=15 and 16 cm, respectively)
 
