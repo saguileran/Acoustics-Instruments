@@ -96,4 +96,53 @@ But most of the equipments measure in SIL, so we need to convert (20) from W/m²
  
  Here Io is a reference sound intensity wich value is 1W/m² and I is the whole equation (20).
 
+## Graphics
+
+First of all, we draw the impedance from equation  (19) in a frequency range between 1 and 5000 with the code below:
+```
+#define _USE_MATH_DEFINES
+#include <iostream>
+#include <cmath>
+#include <cstdio>
+
+double zn(double b, double d);
+double zc(double g, double h);
+
+int main()
+{
+const float fmin = 0.0; //Frecuencia Minima
+const float fmax = 5000.0; //Frecuencia Maxima
+float f = fmin; //Frecuencia
+double al; // Parametro alpha 1/m
+const float L = 0.2; //Longitud Flauta m
+double v; //Parametro v m/s
+const float c = 343.0;//Velocidad del sonido m/s
+const float a = 0.02; //Radio de la flauta m
+double ar1; //Argumento 1 de la funcion
+double ar2; //Argumento 2 de la funcion
+const float df = 10.0;
+const float N = (fmax-fmin)/df;
+
+for(int n = 1; n <= N; n++){ //Pasos de avance de frecuencia
+    f = fmin + df*n;
+    al = (0.00003*(std::sqrt(f)))/a;
+    v = c*(1.0 - ((0.00165)/(a*(std::sqrt(f)))));
+    ar1 = al*L;
+    ar2 = ((f*L*2*(M_PI))/(v));
+    std::printf("%f \t %25.15e\n", f, (zn(ar1, ar2))/(zc(ar1, ar2)));     
+}
+return 0;
+}
+
+double zn(double b, double d){
+ return std::sqrt(((std::tanh(b))*(std::tanh(b)))+((std::tan(d))*(std::tan(d))));
+}
+
+double zc(double g, double h){
+ return std::sqrt(1.0+((std::tanh(g))*(std::tanh(g)))*((std::tan(h))*(std::tan(h))));
+}
+````
+This return some data that we can graph:
+
+GRAFICA
 
