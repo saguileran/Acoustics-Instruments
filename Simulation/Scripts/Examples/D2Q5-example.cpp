@@ -9,8 +9,8 @@ const int Lx = 501*proportion, Ly = 50*proportion;
 const int LFx = 330*(proportion), LFy = 14*(proportion);
 
 const double ke = 0, kF = 1; //k_e =  k enviorment = 0 (absortion wall)
-//const double Aperture_x = 2*proportion;
-//const double Hole_pos = LFx/3;
+const double Aperture_x = 2*proportion;
+const double Hole_pos = LFx/3;
 
 const int Q = 5;
 const double W0 = 1.0 / 3;
@@ -149,7 +149,7 @@ void LatticeBoltzmann::ImposeField(int t){
   int i, ix, iy; double lambda, omega, rho0, Jx0, Jy0;
   
   //sin(omega * t), declare initial function variables
-  lambda = 10; omega = 2 * M_PI / lambda; ix = 22 ; iy = (Ly) / 2;
+  lambda = 20; omega = 2 * M_PI / lambda; ix = 22 ; iy = (Ly) / 2;
 
   //Initialize macroscopic cuantities
   rho0 = 10 * sin(omega*t); //Source function
@@ -214,7 +214,7 @@ void LatticeBoltzmann::Microphone(int t, int ix, int iy, const char * NombreArch
 int main(void){
   
   LatticeBoltzmann Ondas;  
-  int t,tmax=200;
+  int t,tmax=10000;
   
   //GNUPLOT
   /*
@@ -246,10 +246,11 @@ int main(void){
     Ondas.Stream();
 
     //Export microphoes data, time vs pressure
-    //Ondas.Print(t, 20+LFx,    Ly/2, "Micrhopone-0mm.dat");
+    Ondas.Print(t, 20+LFx+30,    Ly/2, "Print-NotHoles.dat");
+    //Ondas.Print(t, 20+LFx+60,    Ly/2, "Micrhopone-0mm.dat");
 
     //Commands to make data animation
-    if(t%5 == 0){Ondas.PrintGrid("SimpleFlute.csv.", t);}
+    //if(t%5 == 0){Ondas.PrintGrid("SimpleFlute.csv.", t);}
 
     //Uncomment to use GNUPLOT animation
     //std::cout << "splot 'Ondas.dat' using 1:2:3  with points palette pointsize 3 pointtype 7 " << std::endl;
