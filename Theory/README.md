@@ -1,6 +1,6 @@
 # Theoretical protocol
 
-The idea of this folder is to show you how we analyse the acoustic physics of a flute. First of all, we will start by taking a few things for granted. The first one ins known as Pressure-gradient force. The second is the fact that a velocity gradient produces a compression in the fluid. Of course, this things as we show in (1)  has to be demostrated. We will explain this with more detail in the extensive work. So as not to complicate things, we start in (1)
+The idea of this folder is to show you how we analyse the acoustic physics of a flute. First of all, we will start by taking a few things for granted. The first one is known as Pressure-gradient force. The second is the fact that a velocity gradient produces a compression in the fluid. Of course, this things as we show in (1)  have to be demostrated. We will explain this with more detail in the extensive work. So as not to complicate things, we start in (1)
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/gradiente.png) (1)
 
