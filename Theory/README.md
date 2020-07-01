@@ -98,7 +98,10 @@ But most of the equipments measure in SIL, so we need to convert (20) from W/m²
 
 ## Graphics
 
-First of all, we draw the impedance from equation  (19) in a frequency range between 1 and 5000 with the code below:
+First of all, we draw the impedance from equation  (19) in a frequency range between 1 and 5000 with the code below. The values of *α* and *v* were taken also from the book  ***The Physics of Musical Instruments***:
+
+ ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/av.png) (22)
+
 ```
 #define _USE_MATH_DEFINES
 #include <iostream>
