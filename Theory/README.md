@@ -1,6 +1,6 @@
 # Theoretical protocol
 
-The idea of this folder is to show you how we analyse the acoustic physics of a flute. First of all, we will start by taking a few things for granted. The first one ins known as Pressure-gradient force. The second is the fact that a velocity gradient produces a compression in the fluid. Of course, this things as we shown in (1)  has to be demostrated. We will explain this with more detail in the extensive work. So as not to complicate things, we start in (1)
+The idea of this folder is to show you how we analyse the acoustic physics of a flute. First of all, we will start by taking a few things for granted. The first one ins known as Pressure-gradient force. The second is the fact that a velocity gradient produces a compression in the fluid. Of course, this things as we show in (1)  has to be demostrated. We will explain this with more detail in the extensive work. So as not to complicate things, we start in (1)
 
 ![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Equations/gradiente.png) (1)
 
@@ -144,5 +144,133 @@ double zc(double g, double h){
 ````
 This return some data that we can graph:
 
-GRAFICA
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Impedance/ImpedanciaParamV1.PNG) [1]
+
+Using the impedance that returns from the code above we made another code to calculate the sound intensity also in a frequency range between 1 and 5000:
+
+````
+#define _USE_MATH_DEFINES
+#include <iostream>
+#include <cmath>
+#include <cstdio>
+
+double zn(double b, double d);
+double zc(double g, double h);
+double U(double j); //Norma de U cuadrado
+int main()
+{
+const float fmin = 0.0; //Frecuencia Minima
+const float fmax = 5000.0; //Frecuencia Maxima
+float f; //Frecuencia
+double al; // Parametro alpha 1/m
+const float L = 0.2; //Longitud Flauta m
+double v; //Parametro v m/s
+const float c = 343.0;//Velocidad del sonido m/s
+const float a = 0.02; //Radio de la flauta m
+double ar1; //Argumento 1 de la funcion
+double ar2; //Argumento 2 de la funcion
+double ar3; //Argumento de la funcion U
+double Z; //zn/zc
+const float df = 10.0; //Paso entre cada f.
+const float N = (fmax-fmin)/df; //Numero de cuentas
+
+for(int n = 1; n <= N; n++){ //Pasos de avance de frecuencia
+    f = fmin + df*n;
+    al = (0.00003*(std::sqrt(f)))/a;
+    v = c*(1.0 - ((0.00165)/(a*(std::sqrt(f)))));
+    ar1 = al*L;
+    ar2 = ((f*L*2.0*(M_PI))/(v));
+    ar3 = (4.0*(M_PI)*f*L)/c;
+    Z = (zn(ar1, ar2))/(zc(ar1, ar2));
+    std::printf("%f \t %25.15e\n", f, U(ar3)*Z);     
+}
+return 0;
+}
+
+double zn(double b, double d){
+ return std::sqrt(((std::tanh(b))*(std::tanh(b)))+((std::tan(d))*(std::tan(d))));
+}
+
+double zc(double g, double h){
+ return std::sqrt(1.0+((std::tanh(g))*(std::tanh(g)))*((std::tan(h))*(std::tan(h))));
+}
+
+double U(double j){
+ return std::sqrt(6.0 + 8.0*(std::cos(j)) + 2.0*(std::cos(2.0*j)));
+}
+````
+
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Intensity/Intensidad.png) [2]
+
+Wich returns the figure [2]. The value of A was obtained experimentally giving a result of A=-20. Because we need to predict not only one note, we need to model the holes. Due to boundary conditions required very complex mathematics, only the effective length of the had was changed. 
+
+Another thing that was taken into account were hidden harmonics. Because the sound of a flute is not exactly a clean sound, we add the harmonics of D to C (With L=15 and 16 cm)
+
+````
+#define _USE_MATH_DEFINES
+#include <iostream>
+#include <cmath>
+#include <cstdio>
+
+double zn(double b, double d);
+double zc(double g, double h);
+double U(double j); //Norma de U cuadrado
+int main()
+{
+const float fmin = 0.0; //Frecuencia Minima
+const float fmax = 5000.0; //Frecuencia Maxima
+float f; //Frecuencia
+double al; // Parametro alpha 1/m
+float L1 = 0.16; //Longitud Flauta m
+float L2 = 0.15; //Longitud Flauta m
+double v; //Parametro v m/s
+const float c = 343.0;//Velocidad del sonido m/s
+const float a = 0.02; //Radio de la flauta m
+double ar1L1; //Argumento 1 de la funcion L=16
+double ar2L1; //Argumento 2 de la funcion L=16
+double ar3L1; //Argumento de la funcion U L=16
+double ar1L2; //Argumento 1 de la funcion L=15
+double ar2L2; //Argumento 2 de la funcion L=15
+double ar3L2; //Argumento de la funcion U L=15
+double ZL1; //zn/zc
+double ZL2; //zn/zc
+const float df = 10.0; //Paso entre cada f.
+const float N = (fmax-fmin)/df; //Numero de cuentas
+
+for(int n = 1; n <= N; n++){ //Pasos de avance de frecuencia
+    f = fmin + df*n;
+    al = (0.00003*(std::sqrt(f)))/a;
+    v = c*(1.0 - ((0.00165)/(a*(std::sqrt(f)))));
+    ar1L1 = al*L1;
+    ar2L1 = ((f*L1*2.0*(M_PI))/(v));
+    ar3L1 = (4.0*(M_PI)*f*L1)/c;
+    ar1L2 = al*L2;
+    ar2L2 = ((f*L2*2.0*(M_PI))/(v));
+    ar3L2 = (4.0*(M_PI)*f*L2)/c;
+    ZL1 = (zn(ar1L1, ar2L1))/(zc(ar1L1, ar2L1));
+    ZL2 = (zn(ar1L2, ar2L2))/(zc(ar1L2, ar2L2));
+    std::printf("%f \t %25.15e\n", f, (U(ar3L1)*ZL1)+(U(ar3L2)*ZL2));     
+}
+return 0;
+}
+
+double zn(double b, double d){
+ return std::sqrt(((std::tanh(b))*(std::tanh(b)))+((std::tan(d))*(std::tan(d))));
+}
+
+double zc(double g, double h){
+ return std::sqrt(1.0+((std::tanh(g))*(std::tanh(g)))*((std::tan(h))*(std::tan(h))));
+}
+
+double U(double j){
+ return std::sqrt(6.0 + 8.0*(std::cos(j)) + 2.0*(std::cos(2.0*j)));
+}
+
+````
+This returns [3]
+
+![](https://github.com/saguileran/Acoustics-Instruments/blob/master/Theory/Intensity/IntensidadC.png)
+
+
+
 
