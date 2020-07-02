@@ -3,6 +3,10 @@
 
 The recorder is one of the most common instruments in the world, that has through the years evolved, and crease a decrease in relevance. Nowadays it is accessible to many people to play it, as part of the basic music education in schools and institutes.
 
+<p align="center">
+  <img  src="https://github.com/saguileran/Acoustics-Instruments/blob/master/flauta.jpg">
+</p>
+
 In this repository it is studied the recorder from waves and fluids theory, measurement of acoustic properties and simulate sound waves. The present project has the objective to study and characterize some properties of this instrument from three physics approaches:
 
 * **Theory**: To model the recorder phenomena that make it sounds using waves and fluids theory. Defining boundary conditions and holes, study the impedance, sound pressure level (SPL), instensity, and other acoustic concepts.
