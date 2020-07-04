@@ -28,7 +28,7 @@ In this repository it is studied the recorder from waves and fluids theory, meas
 
 * **Simulation**: To simulate waves propagation in a recorder with and without holes using a Lattice Boltzmann Method (LBM). Design an algorithm with boundary conditions to obtain measurable data. And compare simulation time of different languages, such as python or C++.
 
-![](ezgif.com-gif-maker.gif)
+![](PlanarWave.gif)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Leader: Andrea Mora
 
