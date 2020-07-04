@@ -12,7 +12,7 @@ import matplotlib
 rootfolder = input('Enter folder direction: ')
 filename = input('Enter file name: ')
 #filename = '/home/sebas/Documents/Acoustics-Instruments/Simulation/Scripts/Examples/60mm.dat'
-data = pd.read_csv(rootfolder + filename, 
+data = pd.read_csv(rootfolder + filename,
                    sep = ',',
                    names=['t', 'rho'])
 p0 = 343**2
@@ -56,6 +56,6 @@ SL = 20 * np.log10(data['rho'])
 #plt.plot(data['t'], SL)
 #plt.pause(1)
 
-plt.show()
+#plt.show()
 
 #plt.savefig(filename[:-4])
