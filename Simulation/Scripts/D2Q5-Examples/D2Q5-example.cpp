@@ -4,13 +4,13 @@
 #include <cmath>
 #include "omp.h"
 
-const int proportion = 1;
+const int proportion = 2;
 const int Lx = 501*proportion, Ly = 50*proportion;
 const int LFx = 330*(proportion), LFy = 14*(proportion);
 
 const double ke = 0, kF = 1; //k_e =  k enviorment = 0 (absortion wall)
-const double Aperture_x = 2*proportion;
-const double Hole_pos = LFx/3;
+//const double Aperture_x = 2*proportion;
+//const double Hole_pos = LFx/3;
 
 const int Q = 5;
 const double W0 = 1.0 / 3;
@@ -61,14 +61,14 @@ LatticeBoltzmann::LatticeBoltzmann(void){
 //--------------MACROSCOPIC QUANTITIES---------------------
 double LatticeBoltzmann::rho(int ix, int iy, bool UseNew){
   int i; double suma = 0;
-    for(i=0;i<Q;i++){if(UseNew) suma += fnew[ix][iy][i]; else suma += f[ix][iy][i]; }
+  for(i=0;i<Q;i++){if(UseNew) suma += fnew[ix][iy][i]; else suma += f[ix][iy][i]; }
   return suma;
 }
 
 double LatticeBoltzmann::Jx(int ix, int iy, bool UseNew){
   int i; double suma;
-    for(suma=0,i=0;i<Q;i++){if(UseNew) suma += fnew[ix][iy][i]*V[0][i]; else suma += f[ix][iy][i]*V[0][i]; }
-    return suma;
+  for(suma=0,i=0;i<Q;i++){if(UseNew) suma += fnew[ix][iy][i]*V[0][i]; else suma += f[ix][iy][i]*V[0][i]; }
+  return suma;
 }
 
 double LatticeBoltzmann::Jy(int ix, int iy, bool UseNew){
@@ -85,7 +85,7 @@ double LatticeBoltzmann::feq(double rho0, double Jx0, double Jy0, int i){
 
 //--------------COLIISIONE FUNCTION-------------------
 void LatticeBoltzmann::Colide(void){
-  int ix, iy, iz, i; double rho0, Jx0, Jy0;  //for all cell
+  int ix, iy, iz, i; double rho0, Jx0, Jy0;  //for each cell
 
 #pragma omp paralel for
   {
@@ -94,29 +94,29 @@ void LatticeBoltzmann::Colide(void){
         //Calcular las cantidades macroscópicas
 	rho0 = rho(ix, iy, false);  Jx0 = Jx(ix, iy, false);  Jy0 = Jy(ix, iy, false);
 	
-	fnew[ix][iy][0] = UmUtau*f[ix][iy][0] + Utau*feq(rho0, Jx0, Jy0, 0);
-	//for(i=0; i<Q; i++){ fnew[ix][iy][i] = UmUtau*f[ix][iy][i] + Utau*feq(rho0, Jx0, Jy0, i);}
-
+	//fnew[ix][iy][0] = UmUtau*f[ix][iy][0] + Utau*feq(rho0, Jx0, Jy0, 0);
+	for(i=0; i<Q; i++){ fnew[ix][iy][i] = UmUtau*f[ix][iy][i] + Utau*feq(rho0, Jx0, Jy0, i);}
+	/*
 	//Left flute wall
 	if(ix == 20 &&  iy >= Ly/2 - LFy/2 && iy <= Ly/2 + LFy/2 ) {fnew[ix][iy][1] = kF * f[ix][iy][3]; fnew[ix][iy][3] = kF * f[ix][iy][1];}
 	else if(ix == Lx - 1 || ix == 1){ fnew[ix][iy][1] = ke * fnew[ix][iy][3]; fnew[ix][iy][3] = ke * fnew[ix][iy][1]; } 
 	else{ fnew[ix][iy][1] = UmUtau*f[ix][iy][1] + Utau*feq(rho0, Jx0, Jy0, 1);
     	      fnew[ix][iy][3] = UmUtau*f[ix][iy][3] + Utau*feq(rho0, Jx0, Jy0, 3); }
 
-	//hirizontall fulte walls, the comment lines are the holes
+	//horizontal fulte walls, the commented lines are the holes
 	if(((iy == Ly/2 - LFy/2 && ix >= 20 && ix <= 20 + LFx) || (iy == Ly/2 + LFy/2  &&  ix >= 20 && ix <= 20 + LFx)
 	    //&&  not(ix >= 20 + Hole_pos + LFx/3 - Aperture_x/2 && ix <= 20 + Hole_pos + LFx/3 + Aperture_x/2 && iy == Ly/2 + LFy/2)
 	    //&&  not(ix >= 20 + Hole_pos - Aperture_x/2 && ix <= 20 + Hole_pos + Aperture_x/2 && iy == Ly/2 + LFy/2)
 	    )
 	   )
-	  {fnew[ix][iy][4] =  kF * fnew[ix][iy][2]; fnew[ix][iy][4] =  kF * fnew[ix][iy][4];}
+	  {fnew[ix][iy][4] =  kF * fnew[ix][iy][2]; fnew[ix][iy][2] =  kF * fnew[ix][iy][4];}
 	else if(iy == Ly - 2 || iy == 1){ fnew[ix][iy][2] = ke *  f[ix][iy][4]; fnew[ix][iy][4] = ke *  f[ix][iy][2]; } 
 	else{ fnew[ix][iy][2] = UmUtau*f[ix][iy][2] + Utau*feq(rho0, Jx0, Jy0, 2);
 	      fnew[ix][iy][4] = UmUtau*f[ix][iy][4] + Utau*feq(rho0, Jx0, Jy0, 4); }
 	
 	//std::cout << ix << " " << iy << " " << rho0 << std::endl; //microphone place
 	//if(ix == Lx-1 and iy == Ly-1){std::cout << " " << std::endl;}
-	
+	*/
     }
   }
  }
@@ -149,7 +149,7 @@ void LatticeBoltzmann::ImposeField(int t){
   int i, ix, iy; double lambda, omega, rho0, Jx0, Jy0;
   
   //sin(omega * t), declare initial function variables
-  lambda = 10; omega = 2 * M_PI / lambda; ix = 22 ; iy = (Ly) / 2;
+  lambda = 10; omega = 2 * M_PI * C / lambda; ix = 22 ; iy = (Ly) / 2;
 
   //Initialize macroscopic cuantities
   rho0 = 10 * sin(omega*t); //Source function
@@ -214,25 +214,7 @@ void LatticeBoltzmann::Microphone(int t, int ix, int iy, const char * NombreArch
 int main(void){
   
   LatticeBoltzmann Ondas;  
-  int t,tmax=10000;
-  
-  //GNUPLOT
-  /*
-  // Commands to maka animation with Gnuplot
-  std::cout << "set terminal gif animate" << std::endl;
-  std::cout << "set output 'pelicula0.gif'" << std::endl;
-  
-  //This commands set up plot type and variables range
-  std::cout << "set pm3d map; set palette color positive" << std::endl;
-  std::cout << "set palette defined (-1 \"red\", 0 \"white\", 1 \"blue\")" << std::endl;
-  std::cout << "set cbrange[-1:1]" << std::endl;
-  std::cout << "set xrange[-1:501]; set yrange[-1:51]; set zrange[-1:1]" << std::endl;
-  //std::cout << "set view map scale 1 " << std::endl;
-
-  //std::cout << "set view map;  set size ratio .9 " << std::endl;
-  //std::cout << "set object 1 rect from graph 0, graph 0 to graph 1, graph 1 back " << std::endl;
-  //std::cout << "set object 1 rect fc rgb 'black' fillstyle solid 1.0 " << std::endl;
-  */
+  int t,tmax=5000;
   
   Ondas.Initialize(0,0,0);
   for(t=0;t<tmax;t++){
@@ -246,14 +228,14 @@ int main(void){
     Ondas.Stream();
 
     //Export microphoes data, time vs pressure
-    Ondas.Print(t, 20+LFx,    Ly/2, "Print-NotHolesV1.dat");
-    //Ondas.Print(t, 20+LFx+60,    Ly/2, "Micrhopone-0mm.dat");
+    Ondas.Print(t, 20+LFx,    Ly/2, "Sin5-10k-0mm.dat");
+    Ondas.Print(t, 20+LFx,    Ly/2, "Sin5-10k-10mm.dat");
+    Ondas.Print(t, 20+LFx,    Ly/2, "Sin5-10k-60mm.dat");
+    
 
     //Commands to make data animation
-    if(t%5 == 0){Ondas.PrintGrid("SimpleFluteNotHoles.csv.", t);}
+    //if(t%5 == 0){Ondas.PrintGrid("SimpleFluteNotHoles.csv.", t);}
 
-    //Uncomment to use GNUPLOT animation
-    //std::cout << "splot 'Ondas.dat' using 1:2:3  with points palette pointsize 3 pointtype 7 " << std::endl;
   }
   return 0;
 }

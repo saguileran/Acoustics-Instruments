@@ -119,7 +119,7 @@ int main(void){
   std::cout << "set output 'ondas_costado.gif'" << std::endl;
 
   //Estos comandos se descomentan para hacer el gif
-  cout << "set pm3d" << endl;
+  cout << "set pm3d map" << endl;
   cout << "set size ratio 1" << endl;
   cout << "set palette defined (-5 \"red\", 0 \"white\", 5 \"blue\")" << endl;
   cout << "set cbrange[-5:5]" << endl;

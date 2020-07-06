@@ -61,13 +61,13 @@ LatticeBoltzmann::LatticeBoltzmann(void){
 //--------------MACROSCOPIC QUANTITIES---------------------
 double LatticeBoltzmann::rho(int ix, int iy, bool UseNew){
   int i; double suma = 0;
-    for(i=0;i<Q;i++){if(UseNew) suma += fnew[ix][iy][i]; else suma += f[ix][iy][i]; }
+  for(i=0;i<Q;i++){if(UseNew) suma += fnew[ix][iy][i]; else suma += f[ix][iy][i]; }
   return suma;
 }
 
 double LatticeBoltzmann::Jx(int ix, int iy, bool UseNew){
   int i; double suma;
-    for(suma=0,i=0;i<Q;i++){if(UseNew) suma += fnew[ix][iy][i]*V[0][i]; else suma += f[ix][iy][i]*V[0][i]; }
+  for(suma=0,i=0;i<Q;i++){if(UseNew) suma += fnew[ix][iy][i]*V[0][i]; else suma += f[ix][iy][i]*V[0][i]; }
     return suma;
 }
 
@@ -94,11 +94,12 @@ void LatticeBoltzmann::Colide(void){
         //Calcular las cantidades macroscópicas
 	rho0 = rho(ix, iy, false);  Jx0 = Jx(ix, iy, false);  Jy0 = Jy(ix, iy, false);
 	
-	fnew[ix][iy][0] = UmUtau*f[ix][iy][0] + Utau*feq(rho0, Jx0, Jy0, 0);
-	//for(i=0; i<Q; i++){ fnew[ix][iy][i] = UmUtau*f[ix][iy][i] + Utau*feq(rho0, Jx0, Jy0, i);}
+	//fnew[ix][iy][0] = UmUtau*f[ix][iy][0] + Utau*feq(rho0, Jx0, Jy0, 0);
+	for(i=0; i<Q; i++){ fnew[ix][iy][i] = UmUtau*f[ix][iy][i] + Utau*feq(rho0, Jx0, Jy0, i);}
 
+	
 	//Left flute wall
-	if(ix == 20 &&  iy >= Ly/2 - LFy/2 && iy <= Ly/2 + LFy/2 ) {fnew[ix][iy][1] = kF * f[ix][iy][2]; fnew[ix][iy][2] = kF * f[ix][iy][1];}
+	if(ix == 20 &&  iy >= Ly/2 - LFy/2 && iy <= Ly/2 + LFy/2 ) {fnew[ix][iy][1] = kF * f[ix][iy][3]; fnew[ix][iy][3] = kF * f[ix][iy][1];}
 	else if(ix == Lx - 1 || ix == 1){ fnew[ix][iy][1] = ke * fnew[ix][iy][3]; fnew[ix][iy][3] = ke * fnew[ix][iy][1]; } 
 	else{ fnew[ix][iy][1] = UmUtau*f[ix][iy][1] + Utau*feq(rho0, Jx0, Jy0, 1);
     	      fnew[ix][iy][3] = UmUtau*f[ix][iy][3] + Utau*feq(rho0, Jx0, Jy0, 3); }
@@ -109,7 +110,7 @@ void LatticeBoltzmann::Colide(void){
 	    //&&  not(ix >= 20 + Hole_pos - Aperture_x/2 && ix <= 20 + Hole_pos + Aperture_x/2 && iy == Ly/2 + LFy/2)
 	    )
 	   )
-	  {fnew[ix][iy][4] =  kF * fnew[ix][iy][2]; fnew[ix][iy][4] =  kF * fnew[ix][iy][4];}
+	  {fnew[ix][iy][4] =  kF * fnew[ix][iy][2]; fnew[ix][iy][2] =  kF * fnew[ix][iy][4];}
 	else if(iy == Ly - 2 || iy == 1){ fnew[ix][iy][2] = ke *  f[ix][iy][4]; fnew[ix][iy][4] = ke *  f[ix][iy][2]; } 
 	else{ fnew[ix][iy][2] = UmUtau*f[ix][iy][2] + Utau*feq(rho0, Jx0, Jy0, 2);
 	      fnew[ix][iy][4] = UmUtau*f[ix][iy][4] + Utau*feq(rho0, Jx0, Jy0, 4); }
@@ -149,7 +150,7 @@ void LatticeBoltzmann::ImposeField(int t){
   int i, ix, iy; double lambda, omega, rho0, Jx0, Jy0;
   
   //sin(omega * t), declare initial function variables
-  lambda = 10; omega = 2 * M_PI / lambda; ix = 22 ; iy = (Ly) / 2;
+  lambda = 10; omega = 2 * M_PI * C/ lambda; ix = 22 ; iy = (Ly) / 2;
 
   //Initialize macroscopic cuantities
   rho0 = 10 * sin(omega*t); //Source function
@@ -244,12 +245,12 @@ int main(void){
     Ondas.Stream();
 
     //Export microphoes data, time vs pressure
-    Ondas.Print(t, 20+LFx,    Ly/2, "LongPulse10k-0mm.dat");
-    Ondas.Print(t, 20+LFx+10, Ly/2, "LongPulse10k-10mm.dat");
-    Ondas.Print(t, 20+LFx+60, Ly/2, "LongPulse10k-60mm.dat");
+    Ondas.Print(t, 20+LFx,    Ly/2, "Normal-0mm.dat");
+    Ondas.Print(t, 20+LFx+10, Ly/2, "Normal-10mm.dat");
+    Ondas.Print(t, 20+LFx+60, Ly/2, "Normal-60mm.dat");
 
     //Commands to make data animation
-    if(t%5 == 0){Ondas.PrintGrid("LongPulse10k.csv.", t);}
+    //if(t%5 == 0){Ondas.PrintGrid("LongPulse10k.csv.", t);}
 
     //Uncomment to use GNUPLOT animation
     //std::cout << "splot 'Ondas.dat' using 1:2:3  with points palette pointsize 3 pointtype 7 " << std::endl;
