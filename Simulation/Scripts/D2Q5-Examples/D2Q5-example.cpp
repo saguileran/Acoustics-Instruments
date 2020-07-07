@@ -4,13 +4,13 @@
 #include <cmath>
 #include "omp.h"
 
-const int proportion = 2;
+const int proportion = 1;
 const int Lx = 501*proportion, Ly = 50*proportion;
 const int LFx = 330*(proportion), LFy = 14*(proportion);
 
-const double ke = 0, kF = 1; //k_e =  k enviorment = 0 (absortion wall)
-//const double Aperture_x = 2*proportion;
-//const double Hole_pos = LFx/3;
+const double ke = 0, kF = 0.2; //k_e =  k enviorment = 0 (absortion wall)
+const double Aperture_x = 2*proportion;
+const double Hole_pos = LFx/3;
 
 const int Q = 5;
 const double W0 = 1.0 / 3;
@@ -105,18 +105,18 @@ void LatticeBoltzmann::Colide(void){
 
 	//horizontal fulte walls, the commented lines are the holes
 	if(((iy == Ly/2 - LFy/2 && ix >= 20 && ix <= 20 + LFx) || (iy == Ly/2 + LFy/2  &&  ix >= 20 && ix <= 20 + LFx)
-	    //&&  not(ix >= 20 + Hole_pos + LFx/3 - Aperture_x/2 && ix <= 20 + Hole_pos + LFx/3 + Aperture_x/2 && iy == Ly/2 + LFy/2)
-	    //&&  not(ix >= 20 + Hole_pos - Aperture_x/2 && ix <= 20 + Hole_pos + Aperture_x/2 && iy == Ly/2 + LFy/2)
+	    &&  not(ix >= 20 + Hole_pos + LFx/3 - Aperture_x/2 && ix <= 20 + Hole_pos + LFx/3 + Aperture_x/2 && iy == Ly/2 + LFy/2)
+	    &&  not(ix >= 20 + Hole_pos - Aperture_x/2 && ix <= 20 + Hole_pos + Aperture_x/2 && iy == Ly/2 + LFy/2)
 	    )
 	   )
 	  {fnew[ix][iy][4] =  kF * fnew[ix][iy][2]; fnew[ix][iy][2] =  kF * fnew[ix][iy][4];}
 	else if(iy == Ly - 2 || iy == 1){ fnew[ix][iy][2] = ke *  f[ix][iy][4]; fnew[ix][iy][4] = ke *  f[ix][iy][2]; } 
 	else{ fnew[ix][iy][2] = UmUtau*f[ix][iy][2] + Utau*feq(rho0, Jx0, Jy0, 2);
 	      fnew[ix][iy][4] = UmUtau*f[ix][iy][4] + Utau*feq(rho0, Jx0, Jy0, 4); }
-	
+	*/
 	//std::cout << ix << " " << iy << " " << rho0 << std::endl; //microphone place
 	//if(ix == Lx-1 and iy == Ly-1){std::cout << " " << std::endl;}
-	*/
+	
     }
   }
  }
@@ -152,7 +152,7 @@ void LatticeBoltzmann::ImposeField(int t){
   lambda = 10; omega = 2 * M_PI * C / lambda; ix = 22 ; iy = (Ly) / 2;
 
   //Initialize macroscopic cuantities
-  rho0 = 10 * sin(omega*t); //Source function
+  rho0 = 50 * sin(omega*t); //Source function
   Jx0 = Jx(ix, iy, false);  Jy0 = Jy(ix, iy, false);
 
   //make a pulse of 500 steps
@@ -228,13 +228,14 @@ int main(void){
     Ondas.Stream();
 
     //Export microphoes data, time vs pressure
-    Ondas.Print(t, 20+LFx,    Ly/2, "Sin5-10k-0mm.dat");
-    Ondas.Print(t, 20+LFx,    Ly/2, "Sin5-10k-10mm.dat");
-    Ondas.Print(t, 20+LFx,    Ly/2, "Sin5-10k-60mm.dat");
+    //Ondas.Print(t, 20+LFx,     Ly/2,  "Pure.dat");
+    //Ondas.Print(t, 20+LFx+10,  Ly/2,  "Pure.dat");
+    //Ondas.Print(t, 20+LFx+60,  Ly/2,  "Pure.dat");
+    //Ondas.Print(t, 20+LFx+100, Ly/2,  "Pure-100mm.dat");
     
 
     //Commands to make data animation
-    //if(t%5 == 0){Ondas.PrintGrid("SimpleFluteNotHoles.csv.", t);}
+    if(t%3 == 0){Ondas.PrintGrid("Pure.csv.", t);}
 
   }
   return 0;
